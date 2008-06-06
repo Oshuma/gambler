@@ -17,7 +17,8 @@ module Gambler
       INITIAL_ANTE = 10
       INITIAL_POT  = 0
 
-      attr_reader :players, :ante, :pot
+      attr_reader :players
+      attr_accessor :ante, :deck, :pot
 
       def initialize(options = {})
         raise InvalidPlayerSize unless options[:players].size >= 2

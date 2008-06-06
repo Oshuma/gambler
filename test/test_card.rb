@@ -15,6 +15,12 @@ class TestCard < Test::Unit::TestCase
     end
   end
 
+  def test_order_of_all_cards
+    cards = Card.all
+    assert_equal('Ace of Clubs', cards.first.to_s)
+    assert_equal('Two of Spades', cards.last.to_s)
+  end
+
   def test_each_face
     Card.each_face do |face|
       assert(Card::FACES.include?(face), "#{face} was not found in FACES.")
