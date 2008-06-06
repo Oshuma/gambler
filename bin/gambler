@@ -40,29 +40,29 @@ module Gambler
     def display_player_stats
       puts '- Players -'.center(WIDTH)
       seperator = "\t"
+      stat_width = WIDTH - 5
       stats     = String.new
       bot_stats = String.new
 
-      stats << "Player: #{@player.name}"
+      stats << "Player: #{@player.name}".ljust(WIDTH/2)
       stats << seperator
       stats << "Chips: #{@player.chips}"
-      puts stats.center(WIDTH)
+      puts stats.center(stat_width)
 
       if @bots.empty?
-        bot_stats << 'No AI opponents.'
+        puts 'No AI opponents.'.center(WIDTH)
       else
         @bots.each do |bot|
-          bot_stats << "AI: #{bot.name}"
+          bot_stats  = "AI: #{bot.name}".ljust(WIDTH/2)
           bot_stats << seperator
           bot_stats << "Chips: #{bot.chips}"
+          puts bot_stats.center(stat_width)
         end
       end
-      puts bot_stats.center(WIDTH)
     end # of display_player_stats
 
     # Client menu.
     def display_menu
-      puts
       puts '-----------------------'.center(WIDTH)
       puts '|  1) Blackjack       |'.center(WIDTH)
       puts '|  2) Stud Poker      |'.center(WIDTH)
@@ -77,20 +77,28 @@ module Gambler
 
     # Play a quick 1vs1 game of Blackjack.
     def play_blackjack
-      setup_player unless @player
       puts 'Play some blackjack!'
     end # of play_blackjack
 
     # Setup a new Player instance.
     def setup_player(options = {})
-      default_name = (options[:bot] ? 'Kenny' : 'Human')
+      default_chips = 100
+      if options[:bot]
+        who = 'AI player'
+        default_name = 'Kenny'
+      else
+        who = 'your player'
+        default_name = 'Human'
+      end
+
+      puts "Setting up #{who}."
       print "Name [#{default_name}]: "
       name = STDIN.gets.chomp
       name = default_name if name.empty?
 
-      print 'Chips [100]: '
+      print "Chips [#{default_chips}]: "
       chips = STDIN.gets.chomp.to_i
-      chips = 100 if chips.zero?
+      chips = default_chips if chips.zero?
 
       return Player.new(name, :chips => chips)
     end # of setup_player
