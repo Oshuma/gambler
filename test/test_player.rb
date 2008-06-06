@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/helper'
 # Tests the Player class.
 class TestPlayer < Test::Unit::TestCase
   def setup
-    @player = Player.new(:name => 'Dale')
+    @player = Player.new('Dale')
   end
 
   def test_pretty_inspect
@@ -15,19 +15,19 @@ class TestPlayer < Test::Unit::TestCase
   end
 
   def test_new_player
-    dale = Player.new(:name => 'Dale', :chips => 10) # broke :(
+    dale = Player.new('Dale', :chips => 10) # broke :(
     assert_kind_of(Player, dale)
     assert_equal('Dale', dale.name)
     assert_equal(10, dale.chips)
   end
 
   def test_player_name
-    @player = Player.new(:name => 'Dale')
+    @player = Player.new('Dale')
     assert_equal('Dale', @player.name)
   end
 
   def test_no_player_name
-    assert_raise(NoPlayerName) { Player.new }
+    assert_raise(ArgumentError) { Player.new }
   end
 
   def test_change_name
@@ -40,13 +40,13 @@ class TestPlayer < Test::Unit::TestCase
   end
 
   def test_player_chips
-    @player = Player.new(:name => 'Dale', :chips => 500)
+    @player = Player.new('Dale', :chips => 500)
     assert_equal(500, @player.chips)
   end
 
   def test_invalid_chip_count
     assert_raise(InvalidChipCount) do
-      Player.new(:name => 'Dale', :chips => 'WTF')
+      Player.new('Dale', :chips => 'WTF')
     end
   end
 

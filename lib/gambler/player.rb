@@ -7,9 +7,9 @@ module Gambler
 
     attr_accessor :name, :chips
 
-    def initialize(options = {})
-      raise NoPlayerName unless options[:name]
-      @name  = options[:name]
+    def initialize(name, options = {})
+      raise NoPlayerName unless name
+      @name  = name
       @chips = options[:chips] || CHIP_STACK
       raise InvalidChipCount unless @chips.is_a? Fixnum
     end
