@@ -18,6 +18,11 @@ module Gambler
     def inspect
       %Q{#<Gambler::Player '#{@name}'>}
     end
+
+    # Pretty printing of a Player.
+    def to_s
+      "#{@name} ($#{@chips})"
+    end
   end # of Player
 
   class NoPlayerName < Exception; end

@@ -10,6 +10,10 @@ class TestPlayer < Test::Unit::TestCase
     assert_equal("#<Gambler::Player 'Dale'>", @player.inspect)
   end
 
+  def test_to_s
+    assert_equal('Dale ($100)', @player.to_s)
+  end
+
   def test_new_player
     dale = Player.new(:name => 'Dale', :chips => 10) # broke :(
     assert_kind_of(Player, dale)
