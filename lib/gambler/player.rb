@@ -19,12 +19,12 @@ module Gambler
     attr_accessor :name, :chips, :hand
 
     def initialize(name, options = {})
-      raise NoPlayerName unless name
+      raise Exceptions::NoPlayerName unless name
       @name  = name
       @hand  = options[:hand] || Array.new
 
       @chips = options[:chips] || CHIP_STACK
-      raise InvalidChipCount unless @chips.is_a? Fixnum
+      raise Exceptions::InvalidChipCount unless @chips.is_a? Fixnum
     end
 
     # Pretty object inspection.

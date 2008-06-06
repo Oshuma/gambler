@@ -7,7 +7,7 @@ class TestBasicGame < Test::Unit::TestCase
   def setup
     @dale  = Player.new('Dale')
     @kenny = Player.new('Kenny')
-    @game = BasicGame.new(:players => [@dale, @kenny])
+    @game  = BasicGame.new(:players => [@dale, @kenny])
   end
 
   def test_basic_game_defaults
@@ -15,6 +15,7 @@ class TestBasicGame < Test::Unit::TestCase
     assert_equal(10, @game.ante)
     assert_equal(0, @game.pot)
     assert_kind_of(Deck, @game.deck)
+    assert(@game.deck.shuffled, "#{@game.deck} is not shuffled!")
   end
 
   def test_no_players

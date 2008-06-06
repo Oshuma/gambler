@@ -13,7 +13,7 @@ module Gambler
     def initialize(options = {})
       options[:cards] ||= Card.all
       options[:cards].each do |card|
-        raise InvalidDeck unless card.is_a? Card
+        raise Exceptions::InvalidDeck unless card.is_a? Card
       end
 
       @cards = options[:cards]
@@ -25,7 +25,7 @@ module Gambler
     #   @deck.deal_to(@player)
     def deal_to(player)
       card = @cards.first
-      raise DeckEmpty if card.nil?
+      raise Exceptions::DeckEmpty if card.nil?
       player.hand << card
       @cards.delete(card)
     end

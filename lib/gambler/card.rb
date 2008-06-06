@@ -65,7 +65,7 @@ module Gambler
       when String:
         build_from_string(args)
       end
-      raise InvalidCardType unless SUITS.include?(suit) && FACES.include?(face)
+      raise Exceptions::InvalidCardType unless SUITS.include?(suit) && FACES.include?(face)
       @face, @suit = face, suit
     end
 
@@ -128,7 +128,7 @@ module Gambler
     # Example:
     #   build_from_array ['K', 'd']
     def build_from_array(array)
-      raise InvalidCardType unless array.size == 2
+      raise Exceptions::InvalidCardType unless array.size == 2
       face = array.shift
       suit = array.shift
       return face, suit
@@ -138,7 +138,7 @@ module Gambler
     # Example:
     #   build_from_hash(:face => 'K', :suit => 'd')
     def build_from_hash(hash)
-      raise InvalidCardType unless hash.include?(:face) && hash.include?(:suit)
+      raise Exceptions::InvalidCardType unless hash.include?(:face) && hash.include?(:suit)
       return hash[:face], hash[:suit]
     end
 
@@ -147,7 +147,7 @@ module Gambler
     #   build_from_string('Kd')
     def build_from_string(string)
       card = string.split('')
-      raise InvalidCardType unless card.size == 2
+      raise Exceptions::InvalidCardType unless card.size == 2
       face = card.shift # First letter.
       suit = card.shift # Second letter.
       return face, suit

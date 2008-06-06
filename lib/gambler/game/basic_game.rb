@@ -54,9 +54,9 @@ module Gambler
       attr_accessor :ante, :deck, :pot
 
       def initialize(options = {})
-        raise NoPlayers unless options[:players].size > 0
+        raise Exceptions::NoPlayers unless options[:players].size > 0
         options[:players].each do |player|
-          raise InvalidPlayers unless player.is_a? Player
+          raise Exceptions::InvalidPlayers unless player.is_a? Player
         end
         @players = options[:players]
 
@@ -69,7 +69,8 @@ module Gambler
 
       # Override this method to make your Game go.
       def play
-        raise PlayNotImplemented, 'You must override the #play method for your game class.'
+        raise Exceptions::PlayNotImplemented,
+          'You must override the #play method for your game class.'
       end
     end # of BasicGame
 
