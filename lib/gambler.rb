@@ -1,3 +1,3 @@
-class Gambler
+module Gambler
   VERSION = '1.0.0'
 end
