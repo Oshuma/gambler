@@ -2,6 +2,9 @@ module Gambler
 
   module Exceptions
 
+    # Gambler
+    class MustOverrideMethod < Exception; end
+
     # Card
     class InvalidCardType < Exception; end
 
@@ -13,7 +16,6 @@ module Gambler
     class InvalidPlayers     < Exception; end
     class InvalidPlayerSize  < Exception; end
     class NoPlayers          < Exception; end
-    class PlayNotImplemented < Exception; end
 
     # Player
     class NoPlayerName     < Exception; end

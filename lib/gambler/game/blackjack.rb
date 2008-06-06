@@ -11,7 +11,6 @@ module Gambler
 
       # This is what sets the game in motion.
       def play
-        raise "Pretend we're playing."
       end # of play
 
     end # of Blackjack

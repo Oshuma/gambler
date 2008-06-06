@@ -23,4 +23,8 @@ class TestBlackjack < Test::Unit::TestCase
       Blackjack.new(:players => [@dale])
     end
   end
+
+  def test_play
+    @game.play
+  end
 end

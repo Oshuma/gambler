@@ -67,9 +67,11 @@ module Gambler
         @pot  = options[:pot]  || INITIAL_POT
       end
 
+      # This is called when a new BasicGame (or child class) is created.
+      # Deals out the initial hands
       # Override this method to make your Game go.
       def play
-        raise Exceptions::PlayNotImplemented,
+        raise Exceptions::MustOverrideMethod,
           'You must override the #play method for your game class.'
       end
     end # of BasicGame

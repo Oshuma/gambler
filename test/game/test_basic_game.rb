@@ -31,7 +31,7 @@ class TestBasicGame < Test::Unit::TestCase
   end
 
   def test_play_not_implemented
-    assert_raise(PlayNotImplemented) do
+    assert_raise(MustOverrideMethod) do
       @game.play # Must be overridden in a child class.
     end
   end
