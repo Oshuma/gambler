@@ -19,7 +19,7 @@ class TestPlayer < Test::Unit::TestCase
     assert_kind_of(Player, dale)
     assert_equal('Dale', dale.name)
     assert_equal(10, dale.chips)
-    assert_equal(nil, dale.hand)
+    assert(dale.hand.empty?)
   end
 
   def test_player_name
@@ -37,7 +37,7 @@ class TestPlayer < Test::Unit::TestCase
   end
 
   def test_player_hand
-    assert_nil(@player.hand)
+    assert(@player.hand.empty?)
     @player = Player.new( 'Cheaty McGee', # has blackjack from the start!
                           :hand => [Card.new('Ad'), Card.new('Kd')] )
     assert_equal(2, @player.hand.size)
