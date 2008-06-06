@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'hoe'
-require './lib/gambler.rb'
+require './lib/gambler'
 require './tasks/override_rake_task'
 
 GAMBLER_ROOT = File.dirname(__FILE__) unless defined? GAMBLER_ROOT
