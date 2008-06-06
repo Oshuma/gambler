@@ -27,6 +27,11 @@ module Gambler
       raise Exceptions::InvalidChipCount unless @chips.is_a? Fixnum
     end
 
+    # Removes all the Cards from the Player's hand.
+    def empty_hand!
+      @hand = Array.new
+    end
+
     # Pretty object inspection.
     def inspect
       %Q{#<Gambler::Player '#{@name}'>}

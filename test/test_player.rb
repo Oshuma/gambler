@@ -43,6 +43,13 @@ class TestPlayer < Test::Unit::TestCase
     assert_equal(2, @player.hand.size)
   end
 
+  def test_empty_hand!
+    @player = Player.new('Dale', :hand => [Card.new('Ad'), Card.new('Kd')])
+    assert_equal(2, @player.hand.size)
+    @player.empty_hand!
+    assert_equal(0, @player.hand.size)
+  end
+
   def test_default_chip_stack
     assert_equal(100, @player.chips)
   end
