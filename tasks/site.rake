@@ -19,8 +19,8 @@ namespace :site do
   desc 'Clear the local site directory of dynamic files'
   task :clear_local do
     header("Clearing local site directory: #{LOCAL_SITE}")
-    FileUtils.rm_f SITE_API      if File.exists? SITE_API
-    FileUtils.rm_r SITE_COVERAGE if File.exists? SITE_COVERAGE
+    sh "rm -rf #{SITE_API}"      if File.exists? SITE_API
+    sh "rm -rf #{SITE_COVERAGE}" if File.exists? SITE_COVERAGE
   end
 
   # Copies the issue and docs to the site directory.
