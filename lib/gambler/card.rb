@@ -52,20 +52,19 @@ module Gambler
 
     # Class methods.
     class << self
-      @@cards ||= Array.new
-
-      # Iterator for all Cards.
+      # Iterator for all Cards; yields one Card in +block+ or returns an Array of all Cards.
       def all(&block)
+        cards = Array.new
         each_face do |face|
           each_suit do |suit|
             if block_given?
               yield new(:face => face, :suit => suit)
             else
-              @@cards << "#{face}#{suit}"
+              cards << new(:face => face, :suit => suit)
             end
           end
         end
-        return @@cards
+        return cards
       end
 
       # Iterator for the FACES.
@@ -77,6 +76,20 @@ module Gambler
       def each_suit(&block)
         SUITS.each { |suit| yield suit }
       end # of each_suit
+
+      # Build methods for each SUIT which will return an array of all Cards in that SUIT.
+      class_eval do
+        Card.each_suit do |index|
+          suit_name = SUIT_NAMES[index].downcase
+          define_method(suit_name) do
+            cards = Array.new
+            all do |card|
+              cards << card if card.suit == index
+            end
+            return cards
+          end
+        end # of Card.each_suit
+      end # of class_eval
     end # of class methods
 
     # Print a human readable description.

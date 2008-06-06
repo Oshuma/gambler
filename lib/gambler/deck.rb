@@ -16,7 +16,12 @@ module Gambler
   # A Deck containing diamonds only.
   #   Deck.new(:cards => :diamonds)
   class Deck
-    def initialize()
+    DEFAULT_CARDS = Card.all
+    DEFAULT_SIZE  = DEFAULT_CARDS.size
+
+    def initialize(options = {})
+      @cards = options[:cards] || DEFAULT_CARDS
+      @size  = options[:size]  || DEFAULT_SIZE
     end
   end # of Deck
 

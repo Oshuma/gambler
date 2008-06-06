@@ -27,6 +27,42 @@ class TestCard < Test::Unit::TestCase
     end
   end
 
+  def test_clubs_class_method
+    clubs = Card.clubs
+    assert_kind_of(Array, clubs)
+    clubs.each do |card|
+      assert_kind_of(Card, card)
+      assert_equal('c', card.suit)
+    end
+  end
+
+  def test_diamonds_class_method
+    diamonds = Card.diamonds
+    assert_kind_of(Array, diamonds)
+    diamonds.each do |card|
+      assert_kind_of(Card, card)
+      assert_equal('d', card.suit)
+    end
+  end
+
+  def test_hearts_class_method
+    hearts = Card.hearts
+    assert_kind_of(Array, hearts)
+    hearts.each do |card|
+      assert_kind_of(Card, card)
+      assert_equal('h', card.suit)
+    end
+  end
+
+  def test_spades_class_method
+    spades = Card.spades
+    assert_kind_of(Array, spades)
+    spades.each do |card|
+      assert_kind_of(Card, card)
+      assert_equal('s', card.suit)
+    end
+  end
+
   def test_to_s
     card = Card.new(:face => 'K', :suit => 'd')
     assert_equal('King of Diamonds', card.to_s)
