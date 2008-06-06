@@ -13,6 +13,12 @@ Hoe.new('gambler', Gambler::VERSION) do |g|
   g.remote_rdoc_dir = 'auto'
 end
 
+# Remove un-needed tasks.
+remove_task 'audit'
+remove_task 'generate_key'
+remove_task 'multi'
+remove_task 'post_blog'
+
 Dir["#{GAMBLER_ROOT}/tasks/**/*.rake"].sort.each { |task| load task }
 
 task :default => [ :test, :rcov ]

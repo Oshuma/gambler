@@ -4,8 +4,12 @@ DOC_ROOT  = File.join(GAMBLER_ROOT, 'doc')
 API_DOCS  = File.join(DOC_ROOT, 'api')
 
 # Remove the default Hoe documentation tasks.
+remove_task 'clobber_docs'
 remove_task 'docs'
 remove_task 'docs/index.html'
+remove_task 'publish_docs'
+remove_task 'redocs'
+remove_task 'ridocs'
 
 desc 'Generate the Gambler API docs'
 task :docs do
