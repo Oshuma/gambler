@@ -18,9 +18,9 @@ module Gambler
     def inspect
       %Q{#<Gambler::Player '#{@name}'>}
     end
-  end # Player
+  end # of Player
 
   class NoPlayerName < Exception; end
   class InvalidChipCount < Exception; end
 
-end # Gambler
+end # of Gambler
