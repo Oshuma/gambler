@@ -19,6 +19,7 @@ class TestPlayer < Test::Unit::TestCase
     assert_kind_of(Player, dale)
     assert_equal('Dale', dale.name)
     assert_equal(10, dale.chips)
+    assert_equal(nil, dale.hand)
   end
 
   def test_player_name
@@ -33,6 +34,13 @@ class TestPlayer < Test::Unit::TestCase
   def test_change_name
     @player.name = 'Not Dale'
     assert_equal('Not Dale', @player.name)
+  end
+
+  def test_player_hand
+    assert_nil(@player.hand)
+    @player = Player.new( 'Cheaty McGee', # has blackjack from the start!
+                          :hand => [Card.new('Ad'), Card.new('Kd')] )
+    assert_equal(2, @player.hand.size)
   end
 
   def test_default_chip_stack
