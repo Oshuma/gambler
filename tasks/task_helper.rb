@@ -1,4 +1,4 @@
-# OverrideRakeTask
+# OverrideRakeTask - http://tools.assembla.com/svn/rails_plugins/override_rake_task/
 Rake::TaskManager.class_eval do
   def remove_task(task_name)
     @tasks.delete(task_name.to_s)
