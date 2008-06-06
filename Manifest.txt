@@ -1,7 +1,16 @@
 History.txt
 Manifest.txt
+README
+README.rdoc
 README.txt
 Rakefile
 bin/gambler
 lib/gambler.rb
+lib/gambler/player.rb
+tasks/docs.rake
+tasks/override_rake_task.rb
+tasks/rcov.rake
+test/helper.rb
+test/suite.rb
 test/test_gambler.rb
+test/test_player.rb
