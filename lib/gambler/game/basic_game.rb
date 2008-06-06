@@ -9,6 +9,9 @@ module Gambler
     # * <tt>deck</tt>: Brand new, fully shuffled Deck to play with.
     # * <tt>pot</tt>: Instance accessor for the game's current pot.
     #
+    # Each child of BasicGame is required to override the #play method to
+    # provide the main game loop and make the magic happen.
+    #
     # The +options+ hash only requires one element, +players+, which must
     # be an array of Gambler::Player objects.
     #
@@ -19,6 +22,12 @@ module Gambler
     #       super(options)
     #     end
     #
+    #     # This handles the work of actually playing a Poker game.
+    #     def play
+    #       # ... play some poker ...
+    #     end
+    #
+    #     private
     #     def poker_stuff
     #       !cheat
     #     end
@@ -30,12 +39,13 @@ module Gambler
     #
     #   # This will be passed to Poker.new.
     #   options = {
-    #     :players => [@dale, @kenny], # Only required option.
-    #     :ante => 10,
+    #     :players => [@dale, @kenny], # The only required option.
+    #     :ante => 50,
     #     :pot => 1_000
     #   }
     #
     #   @game = Poker.new(options)
+    #   @game.play
     class BasicGame
       INITIAL_ANTE = 10
       INITIAL_POT  = 0
@@ -55,6 +65,11 @@ module Gambler
 
         @ante = options[:ante] || INITIAL_ANTE
         @pot  = options[:pot]  || INITIAL_POT
+      end
+
+      # Override this method to make your Game go.
+      def play
+        raise PlayNotImplemented, 'You must override the #play method for your game class.'
       end
     end # of BasicGame
 
