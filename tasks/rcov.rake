@@ -1,6 +1,6 @@
 # Tasks to handle rcov usage.
 
-RCOV_DIR = File.join(GAMBLER_ROOT, 'doc', 'coverage')
+COVERAGE_DIR = File.join(DOC_ROOT, 'coverage')
 
 desc 'Display coverage stats'
 task :rcov do
@@ -14,20 +14,20 @@ namespace :rcov do
     @options = [
       # Remove rcov.rb from report. Escape the slash, because we need it in the string.
       "-x 'rcov\\.rb'",
-      "-o #{RCOV_DIR}"
+      "-o #{COVERAGE_DIR}"
     ]
   end
 
   desc 'Remove the generated coverage report'
   task :clear do
-    system("rm -rf #{RCOV_DIR}")
+    system("rm -rf #{COVERAGE_DIR}")
   end
 
   desc 'Generate coverage report'
   task :html => [ :clear, :setup_rcov ] do
     @options << '--text-summary'
     run_rcov(@options, @test_files)
-    system("open #{RCOV_DIR}/index.html") if RUBY_PLATFORM =~ /darwin/
+    system("open #{COVERAGE_DIR}/index.html") if RUBY_PLATFORM =~ /darwin/ && ENV['OPEN']
   end
 
   task :stats => [ :setup_rcov ] do

@@ -1,2 +1,4 @@
 doc/api/*
 doc/coverage/*
+doc/rubyforge.site/api/*
+doc/rubyforge.site/coverage/*

@@ -1,7 +1,7 @@
 # Tasks to handle application docs.
 DOC_TITLE = "Gambler v#{Gambler::VERSION} Documentation"
-# DOC_TITLE = 'Gambler'
-DOC_DIR   = File.join(GAMBLER_ROOT, 'doc', 'api')
+DOC_ROOT  = File.join(GAMBLER_ROOT, 'doc')
+API_DOCS  = File.join(DOC_ROOT, 'api')
 
 # Remove the default Hoe documentation tasks.
 remove_task 'docs'
@@ -24,7 +24,7 @@ namespace :docs do
       --inline-source
       --line-numbers
       --main README
-      --op #{DOC_DIR}
+      --op #{API_DOCS}
       --title '#{DOC_TITLE}'
     ]
     # Generate a diagram, yes/no?
@@ -38,7 +38,7 @@ namespace :docs do
 
   desc 'Remove the Gambler API docs'
   task :clear do
-    system("rm -rf #{DOC_DIR}")
+    system("rm -rf #{API_DOCS}")
   end
 
   desc 'Remove and rebuild the Gambler API docs'
