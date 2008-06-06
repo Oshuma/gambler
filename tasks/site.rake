@@ -1,9 +1,10 @@
 # Tasks for dealing with the RubyForge site.
 
 # The local directories to store the website files.
-LOCAL_SITE     = File.join("#{DOC_ROOT}", 'rubyforge.site')
-SITE_COVERAGE = File.join(LOCAL_SITE, 'coverage')
+DOC_ROOT      = File.join(GAMBLER_ROOT, 'doc') unless defined? DOC_ROOT
+LOCAL_SITE    = File.join(DOC_ROOT, 'rubyforge.site')
 SITE_API      = File.join(LOCAL_SITE, 'api')
+SITE_COVERAGE = File.join(LOCAL_SITE, 'coverage')
 
 # The remote directory the files will be scp'ed to.
 REMOTE_SITE = 'gambler.rubyforge.org:/var/www/gforge-projects/gambler'
@@ -18,14 +19,12 @@ namespace :site do
   desc 'Clear the local site directory of dynamic files'
   task :clear_local do
     header("Clearing local site directory: #{LOCAL_SITE}")
-    FileUtils.rm_f  SITE_API      if File.exists? SITE_API
-    # FileUtils.mkdir SITE_API
-    FileUtils.rm_r  SITE_COVERAGE if File.exists? SITE_COVERAGE
-    # FileUtils.mkdir SITE_COVERAGE
+    FileUtils.rm_f SITE_API      if File.exists? SITE_API
+    FileUtils.rm_r SITE_COVERAGE if File.exists? SITE_COVERAGE
   end
 
   # Copies the issue and docs to the site directory.
-  task :setup_site_dir => [ :clear_local, 'docs:api', 'rcov:html' ] do
+  task :setup_site_dir => [ :clear_local, 'docs:rebuild', 'rcov:html' ] do
     header('Copying coverage and API docs to the site directory.')
     FileUtils.cp_r(COVERAGE_DIR, LOCAL_SITE)
     FileUtils.cp_r(API_DOCS, LOCAL_SITE)

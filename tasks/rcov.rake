@@ -1,5 +1,6 @@
 # Tasks to handle rcov usage.
 
+DOC_ROOT     = File.join(GAMBLER_ROOT, 'doc') unless defined? DOC_ROOT
 COVERAGE_DIR = File.join(DOC_ROOT, 'coverage')
 
 desc 'Display coverage stats'

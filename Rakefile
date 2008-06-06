@@ -10,6 +10,7 @@ Hoe.new('gambler', Gambler::VERSION) do |g|
   g.developer('Dale Campbell', 'dale@save-state.net')
   g.name = 'Gambler'
   g.version = Gambler::VERSION
+  g.remote_rdoc_dir = 'auto'
 end
 
 Dir["#{GAMBLER_ROOT}/tasks/**/*.rake"].sort.each { |task| load task }
