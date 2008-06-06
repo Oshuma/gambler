@@ -33,6 +33,22 @@ module Gambler
       '3' => 'Three',
       '2' => 'Two'
     }
+    FACE_VALUES = {
+      'A' => 14,
+      'K' => 13,
+      'Q' => 12,
+      'J' => 11,
+      'T' => 10,
+      '9' => 9,
+      '8' => 8,
+      '7' => 7,
+      '6' => 6,
+      '5' => 5,
+      '4' => 4,
+      '3' => 3,
+      '2' => 2,
+      'X' => 1 # Magic low Ace.  Not used.
+    }
 
     attr_reader :face, :suit
 
@@ -78,6 +94,8 @@ module Gambler
       end # of each_suit
 
       # Build methods for each SUIT which will return an array of all Cards in that SUIT.
+      # This will allow for things like:
+      #   Card.diamonds.sort_by { |card| card.face_value }.each {|card| puts card}
       class_eval do
         Card.each_suit do |index|
           suit_name = SUIT_NAMES[index].downcase
@@ -91,6 +109,11 @@ module Gambler
         end # of Card.each_suit
       end # of class_eval
     end # of class methods
+
+    # Return the numerical face value of a Card.
+    def face_value
+      FACE_VALUES[@face]
+    end
 
     # Print a human readable description.
     def to_s
