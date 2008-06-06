@@ -5,6 +5,7 @@ $LOAD_PATH.unshift File.dirname(__FILE__)
 require 'rubygems'
 
 # Gambler libraries.
+require 'gambler/card'
 require 'gambler/player'
 
 module Gambler
