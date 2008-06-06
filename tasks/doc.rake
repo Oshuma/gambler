@@ -6,8 +6,8 @@ DOC_DIR   = File.join(GAMBLER_ROOT, 'doc', 'api')
 namespace :doc do
   task :setup_rdoc do
     @file_list = FileList[ "#{GAMBLER_ROOT}/README",
-                           "#{GAMBLER_ROOT}/lib/**/*.rb",
-                           "#{GAMBLER_ROOT}/test/**/*.rb" ]
+                           "#{GAMBLER_ROOT}/lib/**/*.rb" ]
+    @file_list.add "#{GAMBLER_ROOT}/test/**/*.rb" if ENV['TESTS']
     # Substitute GAMBLER_ROOT with a dot.  Makes for a better index in the generated docs.
     @files = @file_list.collect  {|f| f.gsub(/#{GAMBLER_ROOT}/, '.')}
     @options = %W[
@@ -18,6 +18,8 @@ namespace :doc do
       --op #{DOC_DIR}
       --title '#{DOC_TITLE}'
     ]
+    # Generate a diagram, yes/no?
+    @options << '-d' if RUBY_PLATFORM !~ /win32/ && `which dot` =~ /\/dot/ && !ENV['NODOT']
   end
 
   desc 'Generate the Gambler API docs'
