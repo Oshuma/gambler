@@ -7,6 +7,18 @@ class TestCard < Test::Unit::TestCase
     assert_equal('King of Diamonds', card.to_s)
   end
 
+  def test_each_face
+    Card.each_face do |face|
+      assert(Card::FACES.include?(face), "#{face} was not found in FACES.")
+    end
+  end
+
+  def test_each_suit
+    Card.each_suit do |suit|
+      assert(Card::SUITS.include?(suit), "#{suit} was not found in SUITS.")
+    end
+  end
+
   def test_new_card_from_array
     card = %w{ K d }
     assert_kind_of(Card, Card.new(card))

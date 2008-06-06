@@ -48,6 +48,19 @@ module Gambler
       @face, @suit = face, suit
     end
 
+    # Class methods.
+    class << self
+      # Iterator for the FACES.
+      def each_face(&block)
+        FACES.each { |face| yield face }
+      end # of each_face
+
+      # Iterator for the SUITS.
+      def each_suit(&block)
+        SUITS.each { |suit| yield suit }
+      end # of each_suit
+    end # of class methods
+
     # Print a human readable description.
     def to_s
       face = FACE_NAMES[@face]
