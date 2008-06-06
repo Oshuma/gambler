@@ -16,7 +16,7 @@ module Gambler
 
     # Pretty object inspection.
     def inspect
-      %Q{#<Gambler::Player "#{@name}">}
+      %Q{#<Gambler::Player '#{@name}'>}
     end
   end # Player
 
