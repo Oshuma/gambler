@@ -15,7 +15,8 @@ end
 namespace :docs do
   task :setup_rdoc do
     @file_list = FileList[ "#{GAMBLER_ROOT}/README",
-                           "#{GAMBLER_ROOT}/lib/**/*.rb" ]
+                           "#{GAMBLER_ROOT}/lib/**/*.rb",
+                           "#{GAMBLER_ROOT}/bin/gambler_client" ]
     @file_list.add "#{GAMBLER_ROOT}/test/**/*.rb" if ENV['TESTS']
     # Substitute GAMBLER_ROOT with a dot.  Makes for a better index in the generated docs.
     @files = @file_list.collect  {|f| f.gsub(/#{GAMBLER_ROOT}/, '.')}
@@ -34,6 +35,7 @@ namespace :docs do
   # desc 'Generate the Gambler API docs'
   task :api => [ :setup_rdoc ] do
     run_rdoc(@options, @files)
+    system("open #{API_DOCS}/index.html") if RUBY_PLATFORM =~ /darwin/ && ENV['OPEN']
   end
 
   desc 'Remove the Gambler API docs'

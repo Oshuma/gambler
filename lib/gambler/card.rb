@@ -2,12 +2,15 @@ module Gambler
 
   # Object representing an individual Card.
   #
-  # Example:
+  # All of the following lines create a king of diamonds:
+  #   # Array
   #   Card.new ['K', 'd']
-  #   Card.new :face => 'K', :suit => 'd'
-  #   Card.new 'Kd'
   #
-  # All of the above lines create a king of diamonds.
+  #   # Hash
+  #   Card.new :face => 'K', :suit => 'd'
+  #
+  #   # String
+  #   Card.new 'Kd'
   class Card
     SUITS = %w(c d h s)
     SUIT_NAMES = {
@@ -73,14 +76,11 @@ module Gambler
         cards = Array.new
         each_suit do |suit|
           each_face do |face|
-            if block_given?
-              yield new(:face => face, :suit => suit)
-            else
-              cards << new(:face => face, :suit => suit)
-            end
+            card = self.new(:face => face, :suit => suit)
+            block_given? ? (yield card) : cards << card
           end
         end
-        return cards
+        return cards unless block_given?
       end
 
       # Iterator for the FACES.
@@ -115,7 +115,7 @@ module Gambler
       FACE_VALUES[@face]
     end
 
-    # Print a human readable description.
+    # Print a human readable description of a Card instance.
     def to_s
       face = FACE_NAMES[@face]
       suit = SUIT_NAMES[@suit]

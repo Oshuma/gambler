@@ -24,14 +24,18 @@ module Gambler
     #     end
     #   end
     #
+    #   # Create some players.
     #   @dale  = Gambler::Player.new('Dale')
     #   @kenny = Gambler::Player.new('Kenny')
+    #
+    #   # This will be passed to Poker.new.
     #   options = {
     #     :players => [@dale, @kenny], # Only required option.
     #     :ante => 10,
     #     :pot => 1_000
     #   }
-    #   Poker.new(options)
+    #
+    #   @game = Poker.new(options)
     class BasicGame
       INITIAL_ANTE = 10
       INITIAL_POT  = 0

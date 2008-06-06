@@ -1,15 +1,12 @@
 module Gambler
 
-  # Handles a Deck of Cards.  +options+ can be:
+  # Handles a collection of Gambler::Card objects as a single Deck.
+  # +options+ can be:
   # * <tt>cards</tt>: An array of Cards this Deck will contain.
   #
   # Examples:
   #
-  # Using the defaults.
-  #   Deck.new
-  #
-  # A Deck containing the specified +cards+; +size+ will be set to <tt>cards.size</tt>.
-  #   Deck.new(:cards => Card.diamonds)
+  #   @deck = Deck.new
   class Deck
     attr_reader :cards, :shuffled
 

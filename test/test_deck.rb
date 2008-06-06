@@ -19,6 +19,15 @@ class TestDeck < Test::Unit::TestCase
     end
   end
 
+  def test_cards_option
+    new_deck = Deck.new(:cards => Card.diamonds)
+    assert_kind_of(Deck, new_deck)
+    assert_equal(Card.diamonds.size, new_deck.size)
+    new_deck.cards.each do |card|
+      assert_equal('d', card.suit)
+    end
+  end
+
   def test_invalid_cards
     assert_raise(InvalidDeck) do
       Deck.new(:cards => 'WTF')

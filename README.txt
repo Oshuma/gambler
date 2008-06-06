@@ -1,6 +1,7 @@
 = Gambler
 
-* http://github.com/Oshuma/gambler/
+Github:: http://github.com/Oshuma/gambler/
+RubyForge:: http://gambler.rubyforge.org/
 
 == DESCRIPTION:
 
@@ -12,7 +13,8 @@ Pure Ruby, so far.
 
 == INSTALL:
 
-* sudo gem install gambler
+ $ gem sources -a http://gems.github.com/ (You only need to do this once.)
+ $ gem install Oshuma-gambler
 
 == LICENSE:
 
