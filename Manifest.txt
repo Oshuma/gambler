@@ -1,0 +1,7 @@
+History.txt
+Manifest.txt
+README.txt
+Rakefile
+bin/gambler
+lib/gambler.rb
+test/test_gambler.rb
