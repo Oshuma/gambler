@@ -2,9 +2,17 @@ require File.dirname(__FILE__) + '/helper'
 
 # Tests the Card class.
 class TestCard < Test::Unit::TestCase
-  def test_to_s
-    card = Card.new(:face => 'K', :suit => 'd')
-    assert_equal('King of Diamonds', card.to_s)
+  def test_all_cards
+    assert_equal(52, Card.all.size)
+    assert_kind_of(Array, Card.all)
+  end
+
+  def test_all_iterator
+    Card.all do |card|
+      assert_kind_of(Card, card)
+      assert(Card::FACES.include?(card.face), "#{card.face} was not found in FACES.")
+      assert(Card::SUITS.include?(card.suit), "#{card.suit} was not found in SUITS.")
+    end
   end
 
   def test_each_face
@@ -17,6 +25,11 @@ class TestCard < Test::Unit::TestCase
     Card.each_suit do |suit|
       assert(Card::SUITS.include?(suit), "#{suit} was not found in SUITS.")
     end
+  end
+
+  def test_to_s
+    card = Card.new(:face => 'K', :suit => 'd')
+    assert_equal('King of Diamonds', card.to_s)
   end
 
   def test_new_card_from_array

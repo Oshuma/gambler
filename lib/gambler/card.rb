@@ -34,6 +34,8 @@ module Gambler
       '2' => 'Two'
     }
 
+    attr_reader :face, :suit
+
     # Creates a new Card object, based on the class of +args+.
     def initialize(args)
       face, suit = case args
@@ -50,6 +52,22 @@ module Gambler
 
     # Class methods.
     class << self
+      @@cards ||= Array.new
+
+      # Iterator for all Cards.
+      def all(&block)
+        each_face do |face|
+          each_suit do |suit|
+            if block_given?
+              yield new(:face => face, :suit => suit)
+            else
+              @@cards << "#{face}#{suit}"
+            end
+          end
+        end
+        return @@cards
+      end
+
       # Iterator for the FACES.
       def each_face(&block)
         FACES.each { |face| yield face }
