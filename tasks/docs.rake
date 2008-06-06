@@ -3,7 +3,16 @@ DOC_TITLE = "Gambler v#{Gambler::VERSION} Documentation"
 # DOC_TITLE = 'Gambler'
 DOC_DIR   = File.join(GAMBLER_ROOT, 'doc', 'api')
 
-namespace :doc do
+# Remove the default Hoe documentation tasks.
+remove_task 'docs'
+remove_task 'docs/index.html'
+
+desc 'Generate the Gambler API docs'
+task :docs do
+  Rake::Task['docs:api'].invoke
+end
+
+namespace :docs do
   task :setup_rdoc do
     @file_list = FileList[ "#{GAMBLER_ROOT}/README",
                            "#{GAMBLER_ROOT}/lib/**/*.rb" ]
@@ -22,7 +31,7 @@ namespace :doc do
     @options << '-d' if RUBY_PLATFORM !~ /win32/ && `which dot` =~ /\/dot/ && !ENV['NODOT']
   end
 
-  desc 'Generate the Gambler API docs'
+  # desc 'Generate the Gambler API docs'
   task :api => [ :setup_rdoc ] do
     run_rdoc(@options, @files)
   end
@@ -34,8 +43,8 @@ namespace :doc do
 
   desc 'Remove and rebuild the Gambler API docs'
   task :rebuild do
-    Rake::Task['doc:clear'].invoke
-    Rake::Task['doc:api'].invoke
+    Rake::Task['docs:clear'].invoke
+    Rake::Task['docs:api'].invoke
   end
 end
 
