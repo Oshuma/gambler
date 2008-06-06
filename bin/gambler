@@ -7,6 +7,9 @@ require "#{GAMBLER_ROOT}/lib/gambler"
 module Gambler
 
   # A simple Client which allows you to play around with Gambler.
+  # Most of this class can be ignored, as it just sets up the gaming
+  # environment.  The method to pay attention to is +play_blackjack+.
+  # This is the method that actually creates and deals a Blackjack game.
   class Client
     WIDTH = 50
 
@@ -20,9 +23,8 @@ module Gambler
     end
 
     # Add an AI Player as an opponent.
-    def add_player
-      bot = setup_player(:bot => true)
-      @bots << bot
+    def add_ai_player
+      @bots << setup_player(:bot => true)
     end
 
     # Client header.
@@ -77,7 +79,18 @@ module Gambler
 
     # Play a quick 1vs1 game of Blackjack.
     def play_blackjack
-      puts 'Play some blackjack!'
+      if @bots.size <= 1
+        puts 'Need at least two players for blackjack.'
+        @bots << setup_player(:bot => true)
+      end
+
+      # Create an array and add the player and bots.
+      players = Array.new
+      players << @player
+      players << @bots
+      players.flatten!
+
+      @game = Gambler::Game::Blackjack.new(:players => players)
     end # of play_blackjack
 
     # Setup a new Player instance.
@@ -103,8 +116,8 @@ module Gambler
       return Player.new(name, :chips => chips)
     end # of setup_player
 
-    # This is the main game loop.
-    def play
+    # This is the main client menu.
+    def menu
       display_header
       until player_quits do
         display_player_stats
@@ -119,7 +132,7 @@ module Gambler
         when '3':
           puts 'This game is not implemented yet.'
         when /a/i:
-          add_player
+          add_ai_player
         when /p/i:
           setup_player
         when /q/i:
@@ -129,10 +142,10 @@ module Gambler
           puts 'Invalid choice, dumbass.'
         end
       end
-    end # of play
+    end # of menu
   end # of Client
 
 end # of Gambler
 
 # Let's do this!
-Gambler::Client.new.play
+Gambler::Client.new.menu
