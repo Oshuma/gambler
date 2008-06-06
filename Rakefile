@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'hoe'
 require './lib/gambler.rb'
-require './tasks/task_helper'
+require './tasks/override_rake_task'
 
 GAMBLER_ROOT = File.dirname(__FILE__) unless defined? GAMBLER_ROOT
 
@@ -12,6 +12,8 @@ Hoe.new('gambler', Gambler::VERSION) do |g|
 end
 
 Dir["#{GAMBLER_ROOT}/tasks/**/*.rake"].sort.each { |task| load task }
+
+task :default => [ :test, :rcov ]
 
 desc 'Open a console with Gambler loaded'
 task :console do
