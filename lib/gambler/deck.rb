@@ -17,6 +17,7 @@ module Gambler
     DEFAULT_SIZE  = DEFAULT_CARDS.size
 
     attr_accessor :cards
+    attr_reader :shuffled
 
     def initialize(options = {})
       options[:cards] ||= DEFAULT_CARDS
@@ -28,11 +29,13 @@ module Gambler
       raise InvalidDeckSize unless options[:size].is_a? Fixnum
 
       @cards, @size = options[:cards], options[:size]
+      @shuffled = false
     end
 
     # Shuffles the Deck; changes <tt>@cards</tt> to reflect the shuffle.
     def shuffle!
       @cards.sort! {rand}
+      @shuffled = true
     end
   end # of Deck
 

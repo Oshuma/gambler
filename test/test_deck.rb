@@ -5,6 +5,7 @@ class TestDeck < Test::Unit::TestCase
   def test_new_deck
     deck = Deck.new
     assert_kind_of(Deck, deck)
+    assert_equal(false, deck.shuffled)
     assert_equal(52, deck.cards.size)
     assert_kind_of(Array, deck.cards)
     deck.cards.each do |card|
@@ -27,7 +28,10 @@ class TestDeck < Test::Unit::TestCase
   def test_shuffle!
     deck = Deck.new
     first_card = deck.cards.first
+    last_card  = deck.cards.last
     deck.shuffle!
+    assert(deck.shuffled, "#{deck} not shuffled!")
     assert_not_equal(first_card, deck.cards.first)
+    assert_not_equal(last_card,  deck.cards.last)
   end
 end
