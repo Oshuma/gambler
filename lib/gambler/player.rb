@@ -37,8 +37,4 @@ module Gambler
       "#{@name} ($#{@chips})"
     end
   end # of Player
-
-  class NoPlayerName < Exception; end
-  class InvalidChipCount < Exception; end
-
 end # of Gambler

@@ -43,8 +43,4 @@ module Gambler
       @cards.size
     end
   end # of Deck
-
-  class DeckEmpty   < Exception; end
-  class InvalidDeck < Exception; end
-
 end # of Gambler

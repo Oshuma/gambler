@@ -153,7 +153,4 @@ module Gambler
       return face, suit
     end
   end # of Card
-
-  class InvalidCardType < Exception; end
-
 end # of Gambler

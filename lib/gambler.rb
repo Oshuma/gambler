@@ -7,10 +7,13 @@ require 'rubygems'
 # Gambler libraries.
 require 'gambler/card'
 require 'gambler/deck'
+require 'gambler/exceptions'
 require 'gambler/game'
 require 'gambler/player'
 
 module Gambler
+  include Gambler::Exceptions
+
   class << self
     attr_accessor :debug
   end
