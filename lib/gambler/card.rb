@@ -71,8 +71,8 @@ module Gambler
       # Iterator for all Cards; yields one Card in +block+ or returns an Array of all Cards.
       def all(&block)
         cards = Array.new
-        each_face do |face|
-          each_suit do |suit|
+        each_suit do |suit|
+          each_face do |face|
             if block_given?
               yield new(:face => face, :suit => suit)
             else

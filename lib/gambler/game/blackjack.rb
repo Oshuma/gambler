@@ -17,12 +17,13 @@ module Gambler
       INITIAL_ANTE = 10
       INITIAL_POT  = 0
 
-      attr_reader :players
+      attr_reader :players, :ante, :pot
 
       def initialize(options = {})
         raise InvalidPlayerSize unless options[:players].size >= 2
         @players = options[:players]
         @deck = Deck.new
+        3.times { @deck.shuffle! }
         @ante = options[:ante] || INITIAL_ANTE
         @pot  = options[:pot]  || INITIAL_POT
       end
