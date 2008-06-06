@@ -10,7 +10,7 @@ end
 
 desc 'Open a console with Gambler loaded'
 task :console do
-  sh "irb -rubygems -r ./lib/grit.rb"
+  sh "irb -rubygems -r ./lib/gambler.rb"
 end
 
 desc 'Run rcov coverage'
