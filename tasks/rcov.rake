@@ -1,6 +1,6 @@
 # Tasks to handle rcov usage.
 
-RCOV_DIR   = File.join(GAMBLER_ROOT, 'doc', 'coverage')
+RCOV_DIR = File.join(GAMBLER_ROOT, 'doc', 'coverage')
 
 desc 'Display coverage stats'
 task :rcov do
@@ -27,6 +27,7 @@ namespace :rcov do
   task :html => [ :clear, :setup_rcov ] do
     @options << '--text-summary'
     run_rcov(@options, @test_files)
+    system("open #{RCOV_DIR}/index.html") if RUBY_PLATFORM =~ /darwin/
   end
 
   task :stats => [ :setup_rcov ] do

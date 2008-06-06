@@ -63,6 +63,11 @@ class TestCard < Test::Unit::TestCase
     end
   end
 
+  def test_face_value
+    card = Card.new(:face => 'K', :suit => 'd')
+    assert_equal(13, card.face_value)
+  end
+
   def test_to_s
     card = Card.new(:face => 'K', :suit => 'd')
     assert_equal('King of Diamonds', card.to_s)
