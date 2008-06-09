@@ -10,7 +10,6 @@ Hoe.new('gambler', Gambler::VERSION) do |g|
   g.developer('Dale Campbell', 'dale@save-state.net')
   g.name = 'Gambler'
   g.version = Gambler::VERSION
-  g.remote_rdoc_dir = 'auto'
 end
 
 # Remove un-needed tasks.
