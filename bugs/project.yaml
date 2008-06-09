@@ -1,0 +1,24 @@
+--- !ditz.rubyforge.org,2008-03-06/project
+name: gambler
+version: "0.3"
+components:
+- !ditz.rubyforge.org,2008-03-06/component
+  name: gambler
+- !ditz.rubyforge.org,2008-03-06/component
+  name: card
+- !ditz.rubyforge.org,2008-03-06/component
+  name: deck
+- !ditz.rubyforge.org,2008-03-06/component
+  name: game
+- !ditz.rubyforge.org,2008-03-06/component
+  name: player
+releases:
+- !ditz.rubyforge.org,2008-03-06/release
+  name: beta
+  status: :unreleased
+  release_time:
+  log_events:
+  - - 2008-06-09 02:18:42.902875 Z
+    - Dale Campbell <dale@save-state.net>
+    - created
+    - The beta release of Gambler.
