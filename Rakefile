@@ -6,9 +6,9 @@ require './tasks/util'
 
 GAMBLER_ROOT = File.dirname(__FILE__) unless defined? GAMBLER_ROOT
 
-Hoe.new('gambler', Gambler::VERSION) do |g|
+Hoe.new('Gambler', Gambler::VERSION) do |g|
   g.developer('Dale Campbell', 'dale@save-state.net')
-  g.name = 'Gambler'
+  g.name = 'gambler'
   g.version = Gambler::VERSION
 end
 
