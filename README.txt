@@ -13,6 +13,10 @@ Pure Ruby, so far.
 
 == INSTALL:
 
+ # From RubyForge:
+ $ gem install gambler
+
+ # From Github:
  $ gem sources -a http://gems.github.com/ (You only need to do this once.)
  $ gem install Oshuma-gambler
 
