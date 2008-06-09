@@ -10,17 +10,13 @@ module Gambler
         raise Exceptions::InvalidPlayerSize unless options[:players].size >= 2
         super(options)
         @players.each { |player| player.empty_hand! }
+        deal_initial_hands
       end
-
-      # This is what sets the game in motion.
-      def play
-        deal_initial_cards
-      end # of play
 
       private
 
-      # Deal out the initial cards.
-      def deal_initial_cards
+      # Deal out the initial cards to each Player.
+      def deal_initial_hands
         INITIAL_CARDS.times do
           @players.each do |player|
             @deck.deal_to player
