@@ -26,15 +26,26 @@ namespace :site do
   end
 
   # Copies the issue and docs to the site directory.
-  task :setup_site_dir => [ :clear_local, 'docs:rebuild', 'rcov:html' ] do
+  task :setup_dir => [ :clear_local, :run_external_tasks ] do
     header('Copying coverage and API docs to the site directory.')
     FileUtils.cp_r(COVERAGE_DIR, LOCAL_SITE)
     FileUtils.cp_r(API_DOCS, LOCAL_SITE)
+    FileUtils.cp_r(ISSUE_DIR, LOCAL_SITE)
   end
 
   desc 'Upload the issues and docs to the website'
-  task :upload => :setup_site_dir do
+  task :upload => :setup_dir do
     header('Uploading local site to remote site.')
     sh "cd #{LOCAL_SITE} && scp -r ./* #{REMOTE_SITE}"
+  end
+
+  private
+
+  # Used to shorten the setup_site_dir task definition.
+  task :run_external_tasks do
+    ENV['NODOT'] = 'TRUE' # Don't generate dot diagrams for the site docs.
+    Rake::Task['docs:rebuild'].invoke
+    Rake::Task['issues:report'].invoke
+    Rake::Task['rcov:html'].invoke
   end
 end

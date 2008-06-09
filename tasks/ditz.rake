@@ -29,8 +29,7 @@ namespace :issues do
   end
 
   namespace :report do
-    task :generate do
-      Rake::Task['issues:report:clear'].invoke
+    task :generate => [ 'issues:report:clear' ] do
       header "Generating issue report in #{ISSUE_DIR}"
       sh "ditz html #{ISSUE_DIR}"
     end
