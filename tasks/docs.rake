@@ -11,6 +11,11 @@ remove_task 'publish_docs'
 remove_task 'redocs'
 remove_task 'ridocs'
 
+# Override the default clobber_docs task.
+task :clobber_docs do
+  Rake::Task['docs:clear'].invoke
+end
+
 desc 'Generate the Gambler API docs'
 task :docs do
   Rake::Task['docs:api'].invoke
