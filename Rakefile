@@ -29,6 +29,18 @@ Dir["#{GAMBLER_ROOT}/tasks/**/*.rake"].sort.each { |task| load task }
 
 task :default => [ :test, :rcov ]
 
+desc 'Clean up dynamically generated files'
+task :cleanup do
+  %w{
+    docs:clear
+    issues:report:clear
+    rcov:clear
+    site:clear_local
+  }.each do |clean|
+    Rake::Task[clean].invoke
+  end
+end
+
 desc 'Open a console with Gambler loaded'
 task :console do
   sh "irb -rubygems -r ./lib/gambler.rb"

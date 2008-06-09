@@ -5,6 +5,7 @@ README.rdoc
 README.txt
 Rakefile
 bin/gambler_client
+gambler.gemspec
 lib/gambler.rb
 lib/gambler/card.rb
 lib/gambler/deck.rb
