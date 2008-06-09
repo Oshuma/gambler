@@ -5,7 +5,14 @@ RubyForge:: http://gambler.rubyforge.org/
 
 == DESCRIPTION:
 
+Gambler is a Ruby library which can be included into other classes/modules.
+It provides an object oriented interface for common gambling games such as
+Blackjack, Poker, etc.
+
+== SYNOPSIS:
+
 Ruby library to satisfy yet another human addiction.
+
 
 == REQUIREMENTS:
 

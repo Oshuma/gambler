@@ -10,6 +10,13 @@ Hoe.new('Gambler', Gambler::VERSION) do |g|
   g.developer('Dale Campbell', 'dale@save-state.net')
   g.name = 'gambler'
   g.version = Gambler::VERSION
+  g.changes = g.paragraphs_of('History.txt', 0..1).join("\n\n")
+
+  url = g.paragraphs_of('README.txt', 1).first.split(/\n/)[1].split[1].strip
+  g.url = url
+
+  g.summary = 'Ruby library to satisfy yet another human addiction.'
+  g.description = g.paragraphs_of('README.txt', 3..3).join("\n\n")
 end
 
 # Remove un-needed tasks.
