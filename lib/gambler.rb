@@ -12,7 +12,7 @@ require 'gambler/game'
 require 'gambler/player'
 
 module Gambler
-  include Gambler::Exceptions
+  include Exceptions
 
   class << self
     attr_accessor :debug
