@@ -1,4 +1,8 @@
-=== 1.0.0 / 2008-06-05
+=== 0.0.2 / 2008-06-09
+
+* Basic gambling framework!
+
+=== 0.0.1 / 2008-06-05
 
 * 1 major enhancement
 
