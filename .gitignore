@@ -1,4 +1,6 @@
 doc/api/*
 doc/coverage/*
+doc/issues/*
 doc/rubyforge.site/api/*
 doc/rubyforge.site/coverage/*
+doc/rubyforge.site/issues/*

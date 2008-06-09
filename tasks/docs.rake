@@ -1,6 +1,6 @@
 # Tasks to handle application docs.
 DOC_TITLE = "Gambler v#{Gambler::VERSION} Documentation"
-DOC_ROOT  = File.join(GAMBLER_ROOT, 'doc')
+DOC_ROOT  = File.join(GAMBLER_ROOT, 'doc') unless defined? DOC_ROOT
 API_DOCS  = File.join(DOC_ROOT, 'api')
 
 # Remove the default Hoe documentation tasks.

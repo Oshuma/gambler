@@ -5,6 +5,7 @@ DOC_ROOT      = File.join(GAMBLER_ROOT, 'doc') unless defined? DOC_ROOT
 LOCAL_SITE    = File.join(DOC_ROOT, 'rubyforge.site')
 SITE_API      = File.join(LOCAL_SITE, 'api')
 SITE_COVERAGE = File.join(LOCAL_SITE, 'coverage')
+SITE_ISSUES   = File.join(LOCAL_SITE, 'issues')
 
 # The remote directory the files will be scp'ed to.
 REMOTE_SITE = 'gambler.rubyforge.org:/var/www/gforge-projects/gambler'
@@ -21,6 +22,7 @@ namespace :site do
     header("Clearing local site directory: #{LOCAL_SITE}")
     sh "rm -rf #{SITE_API}"      if File.exists? SITE_API
     sh "rm -rf #{SITE_COVERAGE}" if File.exists? SITE_COVERAGE
+    sh "rm -rf #{SITE_ISSUES}"   if File.exists? SITE_ISSUES
   end
 
   # Copies the issue and docs to the site directory.
