@@ -22,14 +22,76 @@ module Gambler
       @bots = Array.new
     end
 
+    # This is the main client menu.
+    def menu
+      display_header
+      until $player_quits do
+        display_player_stats
+        display_game_menu
+        choice = STDIN.gets.chomp
+
+        case choice
+        when '1':
+          play_blackjack
+        when '2':
+          puts 'This game is not implemented yet.'
+        when '3':
+          puts 'This game is not implemented yet.'
+        when /a/i:
+          add_ai_player
+        when /p/i:
+          setup_player
+        when /d/i:
+          debug_console
+        when /q/i:
+          $player_quits = true
+          exit
+        else
+          puts 'Invalid choice, dumbass.'
+        end
+      end
+    end # of menu
+
+    private
+
     # Add an AI Player as an opponent.
     def add_ai_player
       @bots << setup_player(:bot => true)
     end
 
+    # Simple debugging console.
+    def debug_console
+      stop_debug = false
+      code = Array.new
+
+      puts # spacer
+      puts '== DEBUG CONSOLE =='
+      puts 'Commands:'
+      puts '  /run  - Quit debugger and run the code.'
+      puts '  /show - Show the code currently in the buffer.'
+      puts '  /quit - Quit debugger without running the code.'
+
+      until stop_debug do
+        print "eval:#{code.size + 1}> "
+        line = STDIN.gets.chomp
+
+        case line
+        when '/run':
+          run_code(code)
+          stop_debug = true
+        when '/show':
+          show_code_buffer(code)
+        when '/quit':
+          stop_debug = true
+        else # not a command, must be some Ruby code.
+          code << line
+        end
+      end
+    end # of debug_console
+
     # Client header.
     def display_header
-      puts
+      puts # spacer
       puts ''.center(WIDTH, '=')
       puts " Gambler v#{Gambler::VERSION} ".center(WIDTH, '=')
       puts ''.center(WIDTH, '=')
@@ -70,6 +132,7 @@ module Gambler
       puts '|  2) Stud Poker      |'.center(WIDTH)
       puts "|  3) Texas Hold 'em  |".center(WIDTH)
       puts '|  A) Add AI Player   |'.center(WIDTH)
+      puts '|  D) Debug Console   |'.center(WIDTH)
       puts '|  P) Setup Player    |'.center(WIDTH)
       puts '|  Q) Quit            |'.center(WIDTH)
       puts '-----------------------'.center(WIDTH)
@@ -79,24 +142,36 @@ module Gambler
 
     # Play a quick 1vs1 game of Blackjack.
     def play_blackjack
-      min_players = 2
-
       begin
         # Create an array and add the player and bots.
         players = Array.new
         players << @player
         players << @bots
         players.flatten!
+
         @game = Gambler::Game::Blackjack.new(:players => players)
-        @game.play
       rescue Gambler::Exceptions::InvalidPlayerSize
-        puts "Need at least #{min_players} players for blackjack."
-        until @bots.size == min_players
+        puts 'Need at least 2 players for blackjack.'
+        until @bots.size >= 1
           @bots << setup_player(:bot => true)
         end
         retry
       end # of begin ZOMG!!1
     end # of play_blackjack
+
+    # Takes an array of +code+ lines and <tt>eval</tt>'s them.
+    def run_code(code)
+      puts # spacer
+      begin
+        puts " BEGIN DEBUG ".center(WIDTH, '=')
+        eval(code.join("\n")) # Need to join, since +code+ is an Array.
+        puts " END DEBUG ".center(WIDTH, '=')
+      rescue Exception => error
+        puts " DEBUG FAILED ".center(WIDTH, '=')
+        puts error
+      end
+      puts # spacer
+    end
 
     # Setup a new Player instance.
     def setup_player(options = {})
@@ -118,36 +193,19 @@ module Gambler
       chips = STDIN.gets.chomp.to_i
       chips = default_chips if chips.zero?
 
-      return Player.new(name, :chips => chips)
+      return Gambler::Player.new(name, :chips => chips)
     end # of setup_player
 
-    # This is the main client menu.
-    def menu
-      display_header
-      until $player_quits do
-        display_player_stats
-        display_game_menu
-        choice = STDIN.gets.chomp
-
-        case choice
-        when '1':
-          play_blackjack
-        when '2':
-          puts 'This game is not implemented yet.'
-        when '3':
-          puts 'This game is not implemented yet.'
-        when /a/i:
-          add_ai_player
-        when /p/i:
-          setup_player
-        when /q/i:
-          $player_quits = true
-          exit
-        else
-          puts 'Invalid choice, dumbass.'
-        end
+    # Takes an array of +code+ lines and prints them.
+    def show_code_buffer(code)
+      return (puts "Buffer empty.") if code.size.zero?
+      puts "== BUFFER ==\n"
+      code.each_with_index do |buf, line_num|
+        print "#{line_num + 1}:  ".rjust(5)
+        puts buf
       end
-    end # of menu
+    end
+
   end # of Client
 
 end # of Gambler
