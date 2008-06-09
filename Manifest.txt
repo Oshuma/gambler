@@ -8,10 +8,12 @@ bin/gambler_client
 lib/gambler.rb
 lib/gambler/card.rb
 lib/gambler/deck.rb
+lib/gambler/exceptions.rb
 lib/gambler/game.rb
 lib/gambler/game/basic_game.rb
 lib/gambler/game/blackjack.rb
 lib/gambler/player.rb
+tasks/ditz.rake
 tasks/docs.rake
 tasks/git.rake
 tasks/override_rake_task.rb
