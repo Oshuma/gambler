@@ -93,4 +93,14 @@ class TestPlayer < Test::Unit::TestCase
     @player.chips += pot # You win!
     assert_equal(pot + chips, @player.chips)
   end
+
+  def test_is_broke?
+    @player.chips = 0
+    assert(@player.is_broke?, "#{@player} isn't broke")
+  end
+
+  def test_is_not_broke
+    assert_equal(100, @player.chips)
+    assert_equal(false, @player.is_broke?)
+  end
 end

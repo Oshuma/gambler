@@ -37,6 +37,11 @@ module Gambler
       %Q{#<Gambler::Player '#{@name}'>}
     end
 
+    # Return true/false depending on if the Player has chips.
+    def is_broke?
+      @chips <= 0
+    end
+
     # Pretty printing of a Player.
     def to_s
       "#{@name} ($#{@chips})"
