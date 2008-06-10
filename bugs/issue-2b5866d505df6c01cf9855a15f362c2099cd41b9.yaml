@@ -1,0 +1,18 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Refactor Gambler::Client
+desc: Split Gambler::client into it's own little project.  It's growing out of control!
+type: :task
+component: gambler
+release: beta
+reporter: Dale Campbell <dale@save-state.net>
+status: :unstarted
+disposition: 
+creation_time: 2008-06-10 02:32:27.361470 Z
+references: []
+
+id: 2b5866d505df6c01cf9855a15f362c2099cd41b9
+log_events: 
+- - 2008-06-10 02:32:28.297179 Z
+  - Dale Campbell <dale@save-state.net>
+  - created
+  - ""
