@@ -2,10 +2,10 @@
 title: Refactor Gambler::Client
 desc: Split Gambler::client into it's own little project.  It's growing out of control!
 type: :task
-component: gambler
+component: client
 release: beta
 reporter: Dale Campbell <dale@save-state.net>
-status: :in_progress
+status: :paused
 disposition: 
 creation_time: 2008-06-10 02:32:27.361470 Z
 references: []
@@ -20,3 +20,7 @@ log_events:
   - Dale Campbell <dale@save-state.net>
   - changed status from unstarted to in_progress
   - The Gambler::Client code has been moved to lib/gambler/client.rb
+- - 2008-06-10 22:44:32.050217 Z
+  - Dale Campbell <dale@save-state.net>
+  - changed status from in_progress to paused
+  - Putting this on pause while I cluster it up a bit more.
