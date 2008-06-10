@@ -140,7 +140,16 @@ module Gambler
       print 'Game: '
     end # of display_menu
 
-    # Play a quick 1vs1 game of Blackjack.
+    # Display a menu for the Blackjack game.
+    def display_blackjack_menu
+      puts '----------------------------------------'.center(WIDTH)
+      puts '| (B)et | (H)it | (S)tay | (V)iew Hand |'.center(WIDTH)
+      puts '----------------------------------------'.center(WIDTH)
+      puts
+      print 'Command: '
+    end
+
+    # Play a quick game of Blackjack.
     def play_blackjack
       begin
         # Create an array and add the player and bots.
@@ -149,7 +158,21 @@ module Gambler
         players << @bots
         players.flatten!
 
+        # Play the game!
         @game = Gambler::Game::Blackjack.new(:players => players)
+
+        puts
+        puts ''.center(WIDTH, '=')
+        puts ' Blackjack '.center(WIDTH, '=')
+        puts ''.center(WIDTH, '=')
+        puts
+        display_blackjack_menu
+
+        # Game loop.
+        loop do
+          choice = STDIN.gets.chomp
+          raise "Your choice was: #{choice}"
+        end
       rescue Gambler::Exceptions::InvalidPlayerSize
         puts 'Need at least 2 players for blackjack.'
         until @bots.size >= 1
