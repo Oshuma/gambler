@@ -1,0 +1,18 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: DRY up Client input/output
+desc: Find a way to override STDIN or a better way of handling @input and @output
+type: :task
+component: client
+release: beta
+reporter: Dale Campbell <dale@save-state.net>
+status: :unstarted
+disposition: 
+creation_time: 2008-06-10 22:39:48.736708 Z
+references: []
+
+id: 28b77cd8ace79e823e43a55c14a92a0d90ac5628
+log_events: 
+- - 2008-06-10 22:39:49.459358 Z
+  - Dale Campbell <dale@save-state.net>
+  - created
+  - ""
