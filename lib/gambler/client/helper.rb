@@ -51,6 +51,22 @@ module Gambler
       @output.puts '----------------------------------------'.center(WIDTH)
     end # of display_header
 
+    # Prints all Player hands.
+    def display_hands
+      @output.puts @player
+      @output.puts "#{@player.view_hand(:format => :string)}".rjust(5)
+
+      @bots.each do |bot|
+        @output.puts ''.center(WIDTH, '-')
+        @output.puts bot
+        # Hide the first card for all bots.  No cheating!
+        public_hand = bot.view_hand.reject do |c|
+          c == bot.view_hand.first
+        end.join(' ')
+        @output.puts "** #{public_hand}".rjust(5)
+      end
+    end # of display_hands
+
     # Pretty print the player's stats.
     def display_player_stats
       @output.puts '- Players -'.center(WIDTH)
@@ -88,15 +104,18 @@ module Gambler
       @output.puts '|  Q) Quit            |'.center(WIDTH)
       @output.puts '-----------------------'.center(WIDTH)
       @output.puts # spacer
-      @output.print 'Game: '
+      @output.print 'Command: '
     end # of display_menu
 
     # Display a menu for the Blackjack game.
     def display_blackjack_menu
       @output.puts # spacer
-      @output.puts '--------------------------'.center(WIDTH)
-      @output.puts '| (B)et | (H)it | (S)tay |'.center(WIDTH)
-      @output.puts '--------------------------'.center(WIDTH)
+      @output.puts '-----------------------------------------'.center(WIDTH)
+      @output.puts '| (B)et | (H)it | (S)tay | (V)iew Hands |'.center(WIDTH)
+      @output.puts '-----------------------------------------'.center(WIDTH)
+      @output.puts '------------------------'.center(WIDTH)
+      @output.puts '| (M)ain Menu | (Q)uit |'.center(WIDTH)
+      @output.puts '------------------------'.center(WIDTH)
       @output.puts # spacer
       @output.print 'Command: '
     end
@@ -119,24 +138,28 @@ module Gambler
         @output.puts ''.center(WIDTH, '=')
         @output.puts # spacer
 
-        @output.puts @player
-        @output.puts "#{@player.view_hand(:format => :string)}".rjust(5)
-
-        @bots.each do |bot|
-          @output.puts ''.center(WIDTH, '-')
-          @output.puts bot
-          # Hide the first card for all bots.  No cheating!
-          public_hand = bot.view_hand.reject do |c|
-            c == bot.view_hand.first
-          end.join(' ')
-          @output.puts "** #{public_hand}".rjust(5)
-        end
-
+        display_hands
         display_blackjack_menu
-        # Game loop.
-        until @player.is_broke? do
+
+        # Main game loop.
+        loop do
           choice = @input.gets.chomp
-          raise "Your choice was: #{choice}"
+          case choice
+          when /b/i:
+          when /h/i:
+          when /s/i:
+          when /v/i:
+            puts
+            display_hands
+          when /m/i:
+            break
+          when /q/i:
+            $player_quits = true
+            break
+          else
+            @output.puts 'Invalid choice, dumbass.'
+          end
+          display_blackjack_menu
         end
       rescue Gambler::Exceptions::InvalidPlayerSize
         @output.puts 'Need at least 2 players for blackjack.'
