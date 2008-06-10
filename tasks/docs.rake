@@ -49,6 +49,7 @@ namespace :docs do
 
   desc 'Remove the Gambler API docs'
   task :clear do
+    header("Removing documentation from #{API_DOCS}")
     system("rm -rf #{API_DOCS}")
   end
 
