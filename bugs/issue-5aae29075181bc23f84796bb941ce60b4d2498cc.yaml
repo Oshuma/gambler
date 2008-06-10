@@ -1,0 +1,18 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Tests for Client and ClientHelper
+desc: Title says it all.
+type: :task
+component: client
+release: beta
+reporter: Dale Campbell <dale@save-state.net>
+status: :unstarted
+disposition: 
+creation_time: 2008-06-10 21:09:09.425359 Z
+references: []
+
+id: 5aae29075181bc23f84796bb941ce60b4d2498cc
+log_events: 
+- - 2008-06-10 21:09:10.105502 Z
+  - Dale Campbell <dale@save-state.net>
+  - created
+  - ""
