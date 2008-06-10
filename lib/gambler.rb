@@ -6,6 +6,7 @@ require 'rubygems'
 
 # Gambler libraries.
 require 'gambler/card'
+require 'gambler/client'
 require 'gambler/deck'
 require 'gambler/exceptions'
 require 'gambler/game'
