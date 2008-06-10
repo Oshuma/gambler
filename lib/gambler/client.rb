@@ -3,9 +3,8 @@ require 'gambler/client/helper'
 module Gambler
 
   # A simple Client which allows you to play around with Gambler.
-  # Most of this class can be ignored, as it just sets up the gaming
-  # environment.  The method to pay attention to is +play_blackjack+.
-  # This is the method that actually creates and deals a Blackjack game.
+  # This is *not* meant to be a full featured gaming application.
+  # It only serves as an example of how you can use Gambler in your own code.
   class Client
     include ClientHelper
 
