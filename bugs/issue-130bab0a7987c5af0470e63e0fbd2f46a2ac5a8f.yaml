@@ -1,0 +1,20 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Better Exceptions
+desc: |-
+  Clean up some of the exception classes and calls to take arguments which
+  better describe wtf is going on.
+type: :task
+component: gambler
+release: beta
+reporter: Dale Campbell <dale@save-state.net>
+status: :unstarted
+disposition: 
+creation_time: 2008-06-10 02:26:59.810514 Z
+references: []
+
+id: 130bab0a7987c5af0470e63e0fbd2f46a2ac5a8f
+log_events: 
+- - 2008-06-10 02:27:00.713914 Z
+  - Dale Campbell <dale@save-state.net>
+  - created
+  - ""
