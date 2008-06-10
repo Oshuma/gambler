@@ -23,7 +23,7 @@ module Gambler
       @output.puts '  /quit - Quit debugger without running the code.'
 
       until stop_debug do
-        @output.print "eval:#{code.size + 1}> "
+        @output.print "debug:#{code.size + 1}> "
         line = @input.gets.chomp
 
         case line
