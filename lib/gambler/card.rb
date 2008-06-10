@@ -50,7 +50,7 @@ module Gambler
       '4' => 4,
       '3' => 3,
       '2' => 2,
-      'X' => 1 # Magic low Ace.  Not used.
+      'L' => 1 # Magic low Ace.
     }
 
     attr_reader :face, :suit
