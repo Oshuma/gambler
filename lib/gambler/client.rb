@@ -14,7 +14,8 @@ module Gambler
     attr_accessor :bots
     attr_accessor :player
 
-    def initialize
+    def initialize(input = STDIN, output = STDOUT)
+      @input, @output = input, output
       @player = setup_player
       @bots = Array.new
     end
@@ -25,15 +26,15 @@ module Gambler
       until $player_quits do
         display_player_stats
         display_game_menu
-        choice = STDIN.gets.chomp
+        choice = @input.gets.chomp
 
         case choice
         when '1':
           play_blackjack
         when '2':
-          puts 'This game is not implemented yet.'
+          raise 'This game is not implemented yet.'
         when '3':
-          puts 'This game is not implemented yet.'
+          raise 'This game is not implemented yet.'
         when /a/i:
           add_ai_player
         when /p/i:
@@ -44,7 +45,7 @@ module Gambler
           $player_quits = true
           exit
         else
-          puts 'Invalid choice, dumbass.'
+          @output.puts 'Invalid choice, dumbass.'
         end
       end
     end # of menu
