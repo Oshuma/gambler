@@ -17,8 +17,8 @@ class TestCard < Test::Unit::TestCase
 
   def test_order_of_all_cards
     cards = Card.all
-    assert_equal('Ace of Clubs', cards.first.to_s)
-    assert_equal('Two of Spades', cards.last.to_s)
+    assert_equal('Ace of Clubs', cards.first.to_pretty_s)
+    assert_equal('Two of Spades', cards.last.to_pretty_s)
   end
 
   def test_each_face
@@ -76,7 +76,12 @@ class TestCard < Test::Unit::TestCase
 
   def test_to_s
     card = Card.new(:face => 'K', :suit => 'd')
-    assert_equal('King of Diamonds', card.to_s)
+    assert_equal('Kd', card.to_s)
+  end
+
+  def test_to_pretty_s
+    card = Card.new(:face => 'K', :suit => 'd')
+    assert_equal('King of Diamonds', card.to_pretty_s)
   end
 
   def test_new_card_from_array

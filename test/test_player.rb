@@ -50,6 +50,28 @@ class TestPlayer < Test::Unit::TestCase
     assert_equal(0, @player.hand.size)
   end
 
+  def test_view_hand_as_array
+    @player = Player.new('Dale', :hand => [Card.new('Ad'), Card.new('Kd')])
+    assert_equal(['Ad', 'Kd'], @player.view_hand) # defaults to non-pretty array.
+  end
+
+  def test_view_hand_as_pretty_array
+    @player = Player.new('Dale', :hand => [Card.new('Ad'), Card.new('Kd')])
+    pretty_hand = ['Ace of Diamonds', 'King of Diamonds']
+    assert_equal(pretty_hand, @player.view_hand(:format => :array, :pretty => true))
+  end
+
+  def test_view_hand_as_string
+    @player = Player.new('Dale', :hand => [Card.new('Ad'), Card.new('Kd')])
+    assert_equal('Ad Kd', @player.view_hand(:format => :string))
+  end
+
+  def test_view_hand_as_pretty_string
+    @player = Player.new('Dale', :hand => [Card.new('Ad'), Card.new('Kd')])
+    pretty_hand = 'Ace of Diamonds, King of Diamonds'
+    assert_equal(pretty_hand, @player.view_hand(:format => :string, :pretty => true))
+  end
+
   def test_default_chip_stack
     assert_equal(100, @player.chips)
   end

@@ -116,7 +116,14 @@ module Gambler
     end
 
     # Print a human readable description of a Card instance.
+    #   Card.new('Kd').to_s # => 'Kd'
     def to_s
+      @face + @suit
+    end
+
+    # Print a (pretty) human readable description of a Card instance.
+    #   Card.new('Kd').to_pretty_s # => 'King of Diamonds'
+    def to_pretty_s
       face = FACE_NAMES[@face]
       suit = SUIT_NAMES[@suit]
       return "#{face} of #{suit}"

@@ -41,5 +41,24 @@ module Gambler
     def to_s
       "#{@name} ($#{@chips})"
     end
+
+    # Allows a Player to view their +hand+ in various formats.
+    def view_hand(options = {})
+      format    = options[:format]    || :array
+      pretty    = options[:pretty]    || false
+      seperator = options[:seperator] || (pretty ? ', ' : ' ')
+
+      method = (pretty ? :to_pretty_s : :to_s)
+
+      case format
+      when :array
+        cards = Array.new
+        @hand.each { |card| cards << card.send(method) }
+      when :string
+        cards = @hand.collect { |card| card.send(method) }.join(seperator)
+      end
+      return cards
+    end # of view_hand
+
   end # of Player
 end # of Gambler
