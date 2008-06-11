@@ -53,6 +53,11 @@ module Gambler
 
     # Prints all Player hands.
     def display_hands
+      @output.puts '--'
+      @output.puts "|  Pot: $#{@game.pot}"
+      @output.puts "| Ante: $#{@game.ante}"
+      @output.puts '--'
+
       @output.puts @player
       @output.puts "#{@player.view_hand(:format => :string)}".rjust(5)
 
@@ -131,6 +136,7 @@ module Gambler
 
         # Play the game!
         @game = Gambler::Game::Blackjack.new(:players => players)
+        @game.ante_up!
 
         @output.puts # spacer
         @output.puts ''.center(WIDTH, '=')
@@ -138,28 +144,32 @@ module Gambler
         @output.puts ''.center(WIDTH, '=')
         @output.puts # spacer
 
-        display_hands
-        display_blackjack_menu
-
         # Main game loop.
         loop do
+          display_hands
+          display_blackjack_menu
+
           choice = @input.gets.chomp
           case choice
-          when /b/i:
-          when /h/i:
-          when /s/i:
-          when /v/i:
-            puts
+          when /b/i: # Bet
+            print 'Amount: '
+            amount = @input.gets.chomp.to_i
+            @game.place_bet(@player, amount)
+          when /h/i: # Hit
+            # hit
+          when /s/i: # Stay
+            # stay
+          when /v/i: # View Hands
+            @output.puts # spacer
             display_hands
-          when /m/i:
+          when /m/i: # Main Menu
             break
-          when /q/i:
+          when /q/i: # Quit
             $player_quits = true
             break
           else
             @output.puts 'Invalid choice, dumbass.'
           end
-          display_blackjack_menu
         end
       rescue Gambler::Exceptions::InvalidPlayerSize
         @output.puts 'Need at least 2 players for blackjack.'

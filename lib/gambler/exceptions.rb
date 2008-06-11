@@ -15,6 +15,7 @@ module Gambler
     # Game
     class InvalidPlayers     < Exception; end
     class InvalidPlayerSize  < Exception; end
+    class NotEnoughChips     < Exception; end
     class NoPlayers          < Exception; end
 
     # Player

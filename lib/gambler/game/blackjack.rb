@@ -13,6 +13,19 @@ module Gambler
         deal_initial_hands
       end
 
+      # Forces each Player to put ante in the pot.
+      def ante_up!
+        @players.each { |player| place_bet(player, @ante) }
+      end
+
+      # Allows +player+ to place a bet for +amount+ which will be added to
+      # the current hand's pot.
+      def place_bet(player, amount)
+        raise Exceptions::NotEnoughChips if player.chips < amount
+        @pot += amount
+        player.chips -= amount
+      end
+
       private
 
       # Deal out the initial cards to each Player.
