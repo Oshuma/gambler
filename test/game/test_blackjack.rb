@@ -23,4 +23,21 @@ class TestBlackjack < Test::Unit::TestCase
       Blackjack.new(:players => [@dale])
     end
   end
+
+  def test_ante_up!
+    # Default ante is 10, so for two players that should be 20.
+    @game.ante_up!
+    assert_equal(20, @game.pot)
+  end
+
+  def test_hit
+    @game.hit(@dale)
+    assert_equal(3, @dale.hand.size)
+  end
+
+  def test_place_bet
+    # Note: usually you'd call @game.ante_up! before a hand, but this is a test, yes?
+    @game.place_bet(@dale, 10)
+    assert_equal(10, @game.pot)
+  end
 end
