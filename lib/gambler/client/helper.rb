@@ -115,12 +115,12 @@ module Gambler
     # Display a menu for the Blackjack game.
     def display_blackjack_menu
       @output.puts # spacer
-      @output.puts '-----------------------------------------'.center(WIDTH)
-      @output.puts '| (B)et | (H)it | (S)tay | (V)iew Hands |'.center(WIDTH)
-      @output.puts '-----------------------------------------'.center(WIDTH)
-      @output.puts '------------------------'.center(WIDTH)
-      @output.puts '| (M)ain Menu | (Q)uit |'.center(WIDTH)
-      @output.puts '------------------------'.center(WIDTH)
+      @output.puts '--------------------------'.center(WIDTH)
+      @output.puts '| (B)et | (H)it | (S)tay |'.center(WIDTH)
+      @output.puts '--------------------------'.center(WIDTH)
+      @output.puts '----------------------------------'.center(WIDTH)
+      @output.puts '| (D)ebug | (M)ain Menu | (Q)uit |'.center(WIDTH)
+      @output.puts '----------------------------------'.center(WIDTH)
       @output.puts # spacer
       @output.print 'Command: '
     end
@@ -155,22 +155,17 @@ module Gambler
             print 'Amount: '
             amount = @input.gets.chomp.to_i
             @game.place_bet(@player, amount)
-          when /h/i: # Hit
-            # hit
+          when /h/i: @game.hit(@player)
           when /s/i: # Stay
-            # stay
-          when /v/i: # View Hands
-            @output.puts # spacer
-            display_hands
-          when /m/i: # Main Menu
-            break
-          when /q/i: # Quit
+          when /d/i: debug_console
+          when /m/i: break # Return to main menu.
+          when /q/i: # Quit the Client.
             $player_quits = true
-            break
+            break # from this loop
           else
             @output.puts 'Invalid choice, dumbass.'
           end
-        end
+        end # of main game loop.
       rescue Gambler::Exceptions::InvalidPlayerSize
         @output.puts 'Need at least 2 players for blackjack.'
         until @bots.size >= 1

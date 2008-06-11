@@ -18,6 +18,11 @@ module Gambler
         @players.each { |player| place_bet(player, @ante) }
       end
 
+      # Give +player+ a Card.
+      def hit(player)
+        @deck.deal_to player
+      end
+
       # Allows +player+ to place a bet for +amount+ which will be added to
       # the current hand's pot.
       def place_bet(player, amount)
