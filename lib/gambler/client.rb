@@ -1,4 +1,4 @@
-require 'gambler/client/helper'
+require 'gambler/client/client_helper'
 
 module Gambler
 
