@@ -9,7 +9,7 @@ module Gambler
 
       # These are used instead of Card::FACE_VALUES to accommodate Blackjack.
       FACE_VALUES = {
-        'A' => 11, # Initial value of an Ace is 11.
+        'A' => 11,
         'K' => 10,
         'Q' => 10,
         'J' => 10,
@@ -79,7 +79,6 @@ module Gambler
       # Returns true of the Player's hand has a value above BUST.
       def player_bust?(player)
         hand_value(player.hand) > BUST
-        # calculate Aces?
       end
 
       private

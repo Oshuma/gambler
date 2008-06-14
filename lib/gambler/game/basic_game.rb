@@ -2,8 +2,11 @@ module Gambler
 
   module Game
 
-    # The basic game class in which all others should inherit.
-    # It gives some free functionality to it's children:
+    # The basic game class in which all others can inherit.
+    # Feel free to create your own game class which does not inherit
+    # from BasicGame, but uses Player, Deck, etc. directly.
+    #
+    # BasicGame gives some free functionality to it's children:
     # * <tt>players</tt>: Instance reader for the game's Player(s).
     # * <tt>ante</tt>: Instance accessor for the game's current ante.
     # * <tt>deck</tt>: Brand new, fully shuffled Deck to play with.
@@ -15,8 +18,9 @@ module Gambler
     # Example:
     #   class Poker < Gambler::Game::BasicGame
     #     def initialize(options = {})
-    #       # ... do custom shit ...
-    #       super(options)
+    #       # .. do custom shit (if needed) ..
+    #       super(options) # Required to recieve free functionality.
+    #       # .. more custom shit (if needed) ..
     #     end
     #
     #     def poker_stuff
