@@ -8,12 +8,13 @@ class TestBlackjack < Test::Unit::TestCase
     @dale  = Player.new('Dale')
     @kenny = Player.new('Kenny')
     @game = Blackjack.new(:players => [@dale, @kenny])
+    @game.start_round!
   end
 
   def test_new_blackjack_game
     assert_kind_of(Blackjack, @game)
     assert_equal(10, @game.ante)
-    assert_equal(0, @game.pot)
+    assert_equal(20, @game.pot)
     assert_kind_of(Deck, @game.deck)
   end
 
@@ -25,9 +26,8 @@ class TestBlackjack < Test::Unit::TestCase
   end
 
   def test_ante_up!
-    # Default ante is 10, so for two players that should be 20.
     @game.ante_up!
-    assert_equal(20, @game.pot)
+    assert_equal(40, @game.pot)
   end
 
   def test_hand_value
@@ -46,8 +46,7 @@ class TestBlackjack < Test::Unit::TestCase
   end
 
   def test_place_bet
-    # Note: usually you'd call @game.ante_up! before a hand, but this is a test, yes?
     @game.place_bet(@dale, 10)
-    assert_equal(10, @game.pot)
+    assert_equal(30, @game.pot)
   end
 end
