@@ -6,7 +6,7 @@ class TestBlackjack < Test::Unit::TestCase
 
   def setup
     @dale  = Player.new('Dale')
-    @kenny = Player.new('Kenny')
+    @kenny = Player.new('The Gambler')
     @game = Blackjack.new(:players => [@dale, @kenny])
     @game.start_round!
   end
@@ -16,6 +16,7 @@ class TestBlackjack < Test::Unit::TestCase
     assert_equal(10, @game.ante)
     assert_equal(20, @game.pot)
     assert_kind_of(Deck, @game.deck)
+    assert(@game.deck.shuffled, "#{@game.deck} not shuffled")
   end
 
   def test_invalid_player_size
@@ -62,5 +63,38 @@ class TestBlackjack < Test::Unit::TestCase
     assert_raise(Exceptions::PlayerBust) do
       @game.hit @dale
     end
+  end
+
+  def test_start_round!
+    @game = Blackjack.new(:players => [@dale, @kenny])
+    assert(@dale.hand.empty?, "#{@dale}'s hand is not empty")
+    assert(@kenny.hand.empty?, "#{@kenny}'s hand is not empty")
+    assert_equal(0, @game.pot)
+    @game.start_round!
+    assert_equal(2, @dale.hand.size)
+    assert_equal(2, @kenny.hand.size)
+    assert_equal(20, @game.pot)
+  end
+
+  def test_finish_round!
+    @winner = Player.new('Winner')
+    @loser  = Player.new('Loser')
+    @game = Blackjack.new(:players => [@winner, @loser])
+    @game.start_round!
+
+    # Used in the asserts below.
+    winner_chips = @winner.chips
+    loser_chips  = @loser.chips
+    pot = @game.pot
+
+    # Craft a round with a known outcome.
+    @winner.hand = [Card.new('Kd'), Card.new('Ks')] # => 20
+    @loser.hand  = [Card.new('2d'), Card.new('2s')] # => 4
+    @game.finish_round!
+
+    assert_equal(@winner, @game.round_winner)
+    assert_equal((winner_chips + pot), @winner.chips)
+    assert_equal(loser_chips, @loser.chips)
+    assert_equal(0, @game.pot)
   end
 end

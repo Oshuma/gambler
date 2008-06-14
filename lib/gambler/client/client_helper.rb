@@ -134,7 +134,6 @@ module Gambler
         players << @bots
         players.flatten!
         @game = Gambler::Game::Blackjack.new(:players => players)
-        @game.start_round!
       rescue Gambler::Exceptions::InvalidPlayerSize
         @output.puts 'Need at least 2 players for blackjack.'
         until @bots.size >= 1
@@ -151,6 +150,7 @@ module Gambler
 
       # Main game loop.
       loop do
+        @game.start_round!
         display_hands
         display_blackjack_menu
 
@@ -165,15 +165,16 @@ module Gambler
             @output.puts "You only have $#{@player.chips} left!"
             retry
           end
-        when /h/i:
+        when /h/i: # Hit
           begin
             @game.hit(@player)
           rescue Gambler::Exceptions::PlayerBust
             @output.puts 'BUST!'
-            # .. finish hand with bots ..
           end
         when /s/i: # Stay
-          play_bot_hands
+          @output.puts "Staying with #{@player.hand}"
+
+        # -- These options aren't related to the game. --
         when /d/i: debug_console
         when /m/i: break # Return to main menu.
         when /q/i: # Quit the Client.
@@ -182,6 +183,14 @@ module Gambler
         else
           @output.puts 'Invalid choice, dumbass.'
         end # of case
+
+        play_bot_hands
+        @game.finish_round!
+
+        # Show the winner of the round.
+        @output.puts # spacer
+        @output.puts "The winner of that round was: #{@game.round_winner}"
+        @output.puts # spacer
       end # of main game loop.
     end # of play_blackjack
 

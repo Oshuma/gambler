@@ -25,15 +25,20 @@ module Gambler
         'L' => 1 # Magic low Ace.
       }
 
+      attr_reader :players_in_round
+      attr_reader :round_winner
+
       def initialize(options = {})
         raise Exceptions::InvalidPlayerSize unless options[:players].size >= 2
         super(options)
         @players.each { |player| player.empty_hand! }
+        @players_in_round = @players
+        @round_winner = nil
       end
 
       # Forces each Player to put ante in the pot.
       def ante_up!
-        @players.each { |player| place_bet(player, @ante) }
+        @players_in_round.each { |player| place_bet(player, @ante) }
       end
 
       # Calculates the integer value for a Blackjack +hand+.
@@ -65,7 +70,10 @@ module Gambler
       # Give +player+ a Card.
       def hit(player)
         @deck.deal_to player
-        raise Exceptions::PlayerBust if player_bust?(player)
+        if player_bust?(player)
+          @players_in_round.delete(player)
+          raise Exceptions::PlayerBust
+        end
       end
 
       # Allows +player+ to place a bet for +amount+ which will be added to
@@ -84,8 +92,20 @@ module Gambler
       # This should be called at the beginning of every round (not game),
       # and sets up things like the ante and dealing initial hands.
       def start_round!
+        @players_in_round = @players
+        @round_winner = nil
         ante_up!
         deal_initial_hands
+      end
+
+      # This should be called after all players bust or stay.  Sets the
+      # <tt>@round_winner</tt> variable to the Player object who won and
+      # gives them the pot.
+      def finish_round!
+        @players_in_round.sort_by { |player| hand_value(player.hand) }
+        @round_winner = @players_in_round.first
+        @round_winner.chips += @pot
+        @pot = INITIAL_POT
       end
 
       private
@@ -93,7 +113,7 @@ module Gambler
       # Deal out the initial cards to each Player.
       def deal_initial_hands
         INITIAL_CARDS.times do
-          @players.each do |player|
+          @players_in_round.each do |player|
             @deck.deal_to player
           end
         end
