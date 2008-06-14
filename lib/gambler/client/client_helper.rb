@@ -168,10 +168,9 @@ module Gambler
         when /h/i:
           begin
             @game.hit(@player)
-            raise Gambler::Exceptions::PlayerBusted if @game.player_bust?(@player)
-          rescue Gambler::Exceptions::PlayerBusted
+          rescue Gambler::Exceptions::PlayerBust
             @output.puts 'BUST!'
-            # .. next hand ..
+            # .. finish hand with bots ..
           end
         when /s/i: # Stay
           play_bot_hands
@@ -193,8 +192,7 @@ module Gambler
           begin
             @game.hit(bot)
             @output.puts "#{bot} signals for a hit and gets a #{bot.hand.last}"
-            raise Gambler::Exceptions::PlayerBusted if @game.player_bust?(bot)
-          rescue Gambler::Exceptions::PlayerBusted
+          rescue Gambler::Exceptions::PlayerBust
             @output.puts "#{bot} has busted!"
             # .. remove bot from current round ..
           end

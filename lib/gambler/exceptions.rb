@@ -6,7 +6,7 @@ module Gambler
     class MustOverrideMethod < Exception; end
 
     # Blackjack
-    class PlayerBusted < Exception; end
+    class PlayerBust < Exception; end
 
     # Card
     class InvalidCardType < Exception; end

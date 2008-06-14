@@ -38,6 +38,13 @@ class TestBlackjack < Test::Unit::TestCase
   def test_hand_value_with_aces
     @player = Player.new('Newb', :hand => [
       Card.new('As'), Card.new('2s'), Card.new('3s') ])
+    assert_equal(16, @game.hand_value(@player.hand))
+  end
+
+  def test_hand_value_treating_ace_as_one
+    @player = Player.new('Newb', :hand => [
+      Card.new('As'), Card.new('2s'), Card.new('Ks') ])
+    assert_equal(13, @game.hand_value(@player.hand))
   end
 
   def test_hit
@@ -48,5 +55,12 @@ class TestBlackjack < Test::Unit::TestCase
   def test_place_bet
     @game.place_bet(@dale, 10)
     assert_equal(30, @game.pot)
+  end
+
+  def test_player_bust?
+    @dale.hand = [ Card.new('Kd'), Card.new('Qd') ]
+    assert_raise(Exceptions::PlayerBust) do
+      @game.hit @dale
+    end
   end
 end

@@ -65,6 +65,7 @@ module Gambler
       # Give +player+ a Card.
       def hit(player)
         @deck.deal_to player
+        raise Exceptions::PlayerBust if player_bust?(player)
       end
 
       # Allows +player+ to place a bet for +amount+ which will be added to
