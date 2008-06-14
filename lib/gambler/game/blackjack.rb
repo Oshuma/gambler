@@ -29,7 +29,6 @@ module Gambler
         raise Exceptions::InvalidPlayerSize unless options[:players].size >= 2
         super(options)
         @players.each { |player| player.empty_hand! }
-        deal_initial_hands
       end
 
       # Forces each Player to put ante in the pot.
@@ -81,6 +80,13 @@ module Gambler
         hand_value(player.hand) > BUST
       end
 
+      # This should be called at the beginning of every round (not game),
+      # and sets up things like the ante and dealing initial hands.
+      def start_round!
+        ante_up!
+        deal_initial_hands
+      end
+
       private
 
       # Deal out the initial cards to each Player.
@@ -90,7 +96,7 @@ module Gambler
             @deck.deal_to player
           end
         end
-      end
+      end # of deal_initial_hands
 
     end # of Blackjack
 

@@ -5,8 +5,8 @@ type: :task
 component: game
 release: beta
 reporter: Dale Campbell <dale@save-state.net>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2008-06-14 00:41:49.474362 Z
 references: []
 
@@ -16,3 +16,11 @@ log_events:
   - Dale Campbell <dale@save-state.net>
   - created
   - ""
+- - 2008-06-14 01:41:00.166849 Z
+  - Dale Campbell <dale@save-state.net>
+  - changed status from unstarted to in_progress
+  - About to finish this.
+- - 2008-06-14 01:47:44.000163 Z
+  - Dale Campbell <dale@save-state.net>
+  - closed issue with disposition fixed
+  - DONE.

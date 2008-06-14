@@ -134,7 +134,7 @@ module Gambler
         players << @bots
         players.flatten!
         @game = Gambler::Game::Blackjack.new(:players => players)
-        @game.ante_up!
+        @game.start_round!
       rescue Gambler::Exceptions::InvalidPlayerSize
         @output.puts 'Need at least 2 players for blackjack.'
         until @bots.size >= 1
