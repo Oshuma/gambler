@@ -34,7 +34,7 @@ module Gambler
     # Example:
     #   @deck.shuffle!
     def shuffle!
-      @cards.sort! {rand}
+      @cards = @cards.sort_by { rand }
       @shuffled = true
     end
 
