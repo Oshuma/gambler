@@ -72,6 +72,13 @@ class TestPlayer < Test::Unit::TestCase
     assert_equal(pretty_hand, @player.view_hand(:format => :string, :pretty => true))
   end
 
+  def test_view_hand_as_pretty_string_with_seperator
+    @player = Player.new('Dale', :hand => [Card.new('Ad'), Card.new('Kd')])
+    pretty_hand = 'Ace of Diamonds | King of Diamonds'
+    assert_equal(pretty_hand,
+      @player.view_hand(:format => :string, :pretty => true, :seperator => ' | '))
+  end
+
   def test_default_chip_stack
     assert_equal(100, @player.chips)
   end

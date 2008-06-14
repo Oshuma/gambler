@@ -10,6 +10,7 @@ module Gambler
 
     # Card
     class InvalidCardType < Exception; end
+    class NoWinner        < Exception; end
 
     # Deck
     class DeckEmpty   < Exception; end

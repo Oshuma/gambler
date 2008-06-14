@@ -32,7 +32,8 @@ module Gambler
         raise Exceptions::InvalidPlayerSize unless options[:players].size >= 2
         super(options)
         @players.each { |player| player.empty_hand! }
-        @players_in_round = @players
+        @players_in_round = Array.new
+        @players_in_round.replace(@players)
         @round_winner = nil
       end
 
@@ -92,7 +93,8 @@ module Gambler
       # This should be called at the beginning of every round (not game),
       # and sets up things like the ante and dealing initial hands.
       def start_round!
-        @players_in_round = @players
+        @players.each { |player| player.empty_hand! }
+        @players_in_round.replace(@players)
         @round_winner = nil
         ante_up!
         deal_initial_hands
@@ -102,8 +104,11 @@ module Gambler
       # <tt>@round_winner</tt> variable to the Player object who won and
       # gives them the pot.
       def finish_round!
-        @players_in_round.sort_by { |player| hand_value(player.hand) }
-        @round_winner = @players_in_round.first
+        raise Exceptions::NoWinner if @players_in_round.nil?
+        # The winner is the Player with the highest hand_value.
+        @round_winner = @players_in_round.sort_by do |player|
+          hand_value(player.hand)
+        end.reverse.first
         @round_winner.chips += @pot
         @pot = INITIAL_POT
       end

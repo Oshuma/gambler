@@ -78,22 +78,29 @@ class TestBlackjack < Test::Unit::TestCase
 
   def test_finish_round!
     @winner = Player.new('Winner')
+    @middle = Player.new('Middle')
     @loser  = Player.new('Loser')
-    @game = Blackjack.new(:players => [@winner, @loser])
+
+    # Randomize the order.
+    players = [@winner, @middle, @loser].sort_by { rand }
+    @game = Blackjack.new(:players => players)
     @game.start_round!
 
     # Used in the asserts below.
     winner_chips = @winner.chips
+    middle_chips = @middle.chips
     loser_chips  = @loser.chips
     pot = @game.pot
 
     # Craft a round with a known outcome.
     @winner.hand = [Card.new('Kd'), Card.new('Ks')] # => 20
+    @middle.hand = [Card.new('5h'), Card.new('5c')] # => 10
     @loser.hand  = [Card.new('2d'), Card.new('2s')] # => 4
     @game.finish_round!
 
     assert_equal(@winner, @game.round_winner)
     assert_equal((winner_chips + pot), @winner.chips)
+    assert_equal(middle_chips, @middle.chips)
     assert_equal(loser_chips, @loser.chips)
     assert_equal(0, @game.pot)
   end

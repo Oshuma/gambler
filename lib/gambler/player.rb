@@ -48,6 +48,22 @@ module Gambler
     end
 
     # Allows a Player to view their +hand+ in various formats.
+    # Examples:
+    #   @player = Player.new('Dale', :hand => [Card.new('Ad'), Card.new('Kd')])
+    #
+    #   # :format => :array (the default)
+    #   @player.view_hand
+    #   => ['Ad', 'Kd']
+    #   @player.view_hand(:pretty => true)
+    #   => ['Ace of Diamonds', 'King of Diamonds']
+    #
+    #   # :format => :string
+    #   @player.view_hand(:format => :string)
+    #   => 'Ad Kd'
+    #   @player.view_hand(:format => :string, :pretty => true)
+    #   => 'Ace of Diamonds, King of Diamonds'
+    #   @player.view_hand(:format => :string, :pretty => true, :seperator => ' | ')
+    #   => 'Ace of Diamonds | King of Diamonds'
     def view_hand(options = {})
       format    = options[:format]    || :array
       pretty    = options[:pretty]    || false

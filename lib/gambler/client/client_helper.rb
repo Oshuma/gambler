@@ -61,13 +61,16 @@ module Gambler
       @output.puts @player
       @output.puts "#{@player.view_hand(:format => :string)}".rjust(5)
 
-      @bots.each do |bot|
+      bots = @game.players[1..@game.players.size]
+      bots.each do |bot|
         @output.puts ''.center(WIDTH, '-')
         @output.puts bot
+        hand = bot.view_hand
         # Hide the first card for all bots.  No cheating!
-        public_hand = bot.view_hand.reject do |c|
-          c == bot.view_hand.first
-        end.join(' ')
+        public_hand = hand[1..hand.size].join(' ')
+        # public_hand = bot.view_hand.reject do |c|
+        #   c == bot.view_hand.first
+        # end.join(' ')
         @output.puts "** #{public_hand}".rjust(5)
       end
     end # of display_hands
@@ -148,9 +151,10 @@ module Gambler
       @output.puts ''.center(WIDTH, '=')
       @output.puts # spacer
 
+      @game.start_round!
+
       # Main game loop.
       loop do
-        @game.start_round!
         display_hands
         display_blackjack_menu
 
@@ -168,12 +172,17 @@ module Gambler
         when /h/i: # Hit
           begin
             @game.hit(@player)
+            player_finished = false
           rescue Gambler::Exceptions::PlayerBust
             @output.puts 'BUST!'
+            player_finished = true
+          rescue Gambler::Exceptions::DeckEmpty
+            reshuffle_deck
+            retry
           end
         when /s/i: # Stay
-          @output.puts "Staying with #{@player.hand}"
-
+          @output.puts "Staying with #{@player.view_hand(:format => :string)}"
+          player_finished = true
         # -- These options aren't related to the game. --
         when /d/i: debug_console
         when /m/i: break # Return to main menu.
@@ -184,13 +193,26 @@ module Gambler
           @output.puts 'Invalid choice, dumbass.'
         end # of case
 
-        play_bot_hands
-        @game.finish_round!
+        if player_finished
+          play_bot_hands
+          begin
+            @game.finish_round!
+            # Show the winner of the round.
+            @output.puts ''.center(WIDTH, '=') # spacer
+            @output.puts "The winner of that round was: #{@game.round_winner}"
+            @game.players.each do |player|
+              @output.puts "#{player}: #{player.view_hand(:format => :string)}"
+            end
+            @output.puts ''.center(WIDTH, '=') # spacer
+          rescue Gambler::Exceptions::NoWinner
+            @output.puts ''.center(WIDTH, '=') # spacer
+            @output.put 'Nobody won.  Everyone fucking sucks.'.center(WIDTH)
+            @output.puts ''.center(WIDTH, '=') # spacer
+          end
 
-        # Show the winner of the round.
-        @output.puts # spacer
-        @output.puts "The winner of that round was: #{@game.round_winner}"
-        @output.puts # spacer
+          choice = nil
+          @game.start_round!
+        end
       end # of main game loop.
     end # of play_blackjack
 
@@ -201,13 +223,24 @@ module Gambler
           begin
             @game.hit(bot)
             @output.puts "#{bot} signals for a hit and gets a #{bot.hand.last}"
+          rescue Gambler::Exceptions::DeckEmpty
+            reshuffle_deck
+            retry
           rescue Gambler::Exceptions::PlayerBust
             @output.puts "#{bot} has busted!"
-            # .. remove bot from current round ..
           end
         end
       end
     end # of play_bot_hands
+
+    # Used to reshuffle a deck after Gambler::Exceptions::DeckEmtpy is thrown.
+    def reshuffle_deck
+      @output.puts ''.center(WIDTH, '-')
+      @output.puts 'Shuffling new deck.'
+      @output.puts ''.center(WIDTH, '-')
+      @game.deck = Gambler::Deck.new
+      3.times { @game.deck.shuffle! }
+    end
 
     # Takes an array of +code+ lines and <tt>eval</tt>'s them.
     def run_code(code)
