@@ -37,6 +37,7 @@ namespace :site do
   task :upload => :setup_dir do
     header('Uploading local site to remote site.')
     sh "cd #{LOCAL_SITE} && scp -r ./* #{REMOTE_SITE}"
+    sh "open http://gambler.rubyforge.org/" if RUBY_PLATFORM =~ /darwin/
   end
 
   private
