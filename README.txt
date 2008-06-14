@@ -27,6 +27,9 @@ Pure Ruby, so far.
  $ gem sources -a http://gems.github.com/ (You only need to do this once.)
  $ gem install Oshuma-gambler
 
+== USAGE:
+See http://gambler.rubyforge.org/api/ for usage documentation.
+
 == LICENSE:
 
      DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE

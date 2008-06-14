@@ -1,3 +1,8 @@
+=== 0.0.3 / 2008-06-14
+
+* Blackjack is basically playable!
+* The client (./bin/gambler_client) uses all functionality of the Blackjack class.
+
 === 0.0.2 / 2008-06-09
 
 * Basic gambling framework!

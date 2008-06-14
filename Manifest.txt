@@ -8,6 +8,8 @@ bin/gambler_client
 gambler.gemspec
 lib/gambler.rb
 lib/gambler/card.rb
+lib/gambler/client.rb
+lib/gambler/client/client_helper.rb
 lib/gambler/deck.rb
 lib/gambler/exceptions.rb
 lib/gambler/game.rb
@@ -21,6 +23,8 @@ tasks/override_rake_task.rb
 tasks/rcov.rake
 tasks/site.rake
 tasks/util.rb
+test/client/test_client.rb
+test/client/test_client_helper.rb
 test/game/test_basic_game.rb
 test/game/test_blackjack.rb
 test/helper.rb
