@@ -1,0 +1,18 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Handle Blackjack tied round.
+desc: Blackjack#finish_round! does not currently account for tied hand values.
+type: :bugfix
+component: game
+release: beta
+reporter: Dale Campbell <dale@save-state.net>
+status: :unstarted
+disposition: 
+creation_time: 2008-06-14 05:25:47.599799 Z
+references: []
+
+id: 862e1e8dc6c1517fcdac8fe56c0c212e50f0b703
+log_events: 
+- - 2008-06-14 05:25:49.063913 Z
+  - Dale Campbell <dale@save-state.net>
+  - created
+  - ""

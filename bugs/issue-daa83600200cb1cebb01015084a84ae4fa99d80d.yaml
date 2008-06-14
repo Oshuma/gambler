@@ -1,0 +1,20 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Declare winner of a Player gets Blackjack
+desc: |-
+  A blackjack hand consitst of two cards, an Ace and any other card which
+  is Ten or higher.  The Player with this hand wins over any other 21 hand value.
+type: :bugfix
+component: game
+release: beta
+reporter: Dale Campbell <dale@save-state.net>
+status: :unstarted
+disposition: 
+creation_time: 2008-06-14 05:27:53.514907 Z
+references: []
+
+id: daa83600200cb1cebb01015084a84ae4fa99d80d
+log_events: 
+- - 2008-06-14 05:27:54.379126 Z
+  - Dale Campbell <dale@save-state.net>
+  - created
+  - ""
