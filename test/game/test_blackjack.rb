@@ -30,6 +30,16 @@ class TestBlackjack < Test::Unit::TestCase
     assert_equal(20, @game.pot)
   end
 
+  def test_hand_value
+    @player = Player.new('Newb', :hand => [ Card.new('2s'), Card.new('3s') ])
+    assert_equal(5, @game.hand_value(@player.hand))
+  end
+
+  def test_hand_value_with_aces
+    @player = Player.new('Newb', :hand => [
+      Card.new('As'), Card.new('2s'), Card.new('3s') ])
+  end
+
   def test_hit
     @game.hit(@dale)
     assert_equal(3, @dale.hand.size)

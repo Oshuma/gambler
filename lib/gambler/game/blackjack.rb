@@ -4,7 +4,26 @@ module Gambler
 
     # The Game of Blackjack.
     class Blackjack < Gambler::Game::BasicGame
+      BUST = 21 # The hand_value in which the Player busts.
       INITIAL_CARDS = 2
+
+      # These are used instead of Card::FACE_VALUES to accommodate Blackjack.
+      FACE_VALUES = {
+        'A' => 11, # Initial value of an Ace is 11.
+        'K' => 10,
+        'Q' => 10,
+        'J' => 10,
+        'T' => 10,
+        '9' => 9,
+        '8' => 8,
+        '7' => 7,
+        '6' => 6,
+        '5' => 5,
+        '4' => 4,
+        '3' => 3,
+        '2' => 2,
+        'L' => 1 # Magic low Ace.
+      }
 
       def initialize(options = {})
         raise Exceptions::InvalidPlayerSize unless options[:players].size >= 2
@@ -19,14 +38,30 @@ module Gambler
       end
 
       # Calculates the integer value for a Blackjack +hand+.
+      # Aces are converted to their lower value if the total hand value
+      # will bust the Player (and there are aces in the +hand+, of course).
       def hand_value(hand)
         return 0 if hand.empty?
-        hand_value = 0
+        value = 0
+
+        # Add up the face values
         hand.each do |card|
-          hand_value += (card.face_value >= 10 ? 10 : card.face_value)
+          value += FACE_VALUES[card.face]
         end
-        return hand_value
-      end
+
+        # Handle any needed Ace changes.
+        while value > BUST
+          hand.each do |card|
+            if card.face == 'A'
+              # Subtract the difference between high and low ace (10).
+              value -= (FACE_VALUES['A'] - FACE_VALUES['L'])
+            end
+          end
+          break # no aces to change, bail
+        end
+
+        return value
+      end # of hand_value
 
       # Give +player+ a Card.
       def hit(player)
@@ -41,9 +76,9 @@ module Gambler
         player.chips -= amount
       end
 
-      # Returns true of the Player's hand has a value above 21.
+      # Returns true of the Player's hand has a value above BUST.
       def player_bust?(player)
-        hand_value(player.hand) > 21
+        hand_value(player.hand) > BUST
         # calculate Aces?
       end
 

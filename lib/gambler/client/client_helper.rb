@@ -190,7 +190,6 @@ module Gambler
     def play_bot_hands
       @bots.each do |bot|
         while @game.hand_value(bot.hand) <= 17
-          puts "\n\n#{bot} | Hand Value: #{@game.hand_value(bot.hand)}"
           begin
             @game.hit(bot)
             @output.puts "#{bot} signals for a hit and gets a #{bot.hand.last}"
