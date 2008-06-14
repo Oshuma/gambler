@@ -48,7 +48,8 @@ class TestBlackjack < Test::Unit::TestCase
     assert_equal(13, @game.hand_value(@player.hand))
   end
 
-  def test_hit
+  def test_hit # shouldn't bust
+    @dale.hand = [ Card.new('2d'), Card.new('3d') ]
     @game.hit(@dale)
     assert_equal(3, @dale.hand.size)
   end
