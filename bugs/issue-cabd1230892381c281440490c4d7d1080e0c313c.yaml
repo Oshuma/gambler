@@ -1,0 +1,18 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Rename Blackjack#deal_initial_hands to an instance method named start_round (or similar).
+desc: See title.
+type: :task
+component: game
+release: beta
+reporter: Dale Campbell <dale@save-state.net>
+status: :unstarted
+disposition: 
+creation_time: 2008-06-14 00:41:49.474362 Z
+references: []
+
+id: cabd1230892381c281440490c4d7d1080e0c313c
+log_events: 
+- - 2008-06-14 00:41:51.226343 Z
+  - Dale Campbell <dale@save-state.net>
+  - created
+  - ""
