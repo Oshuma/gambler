@@ -127,53 +127,81 @@ module Gambler
 
     # Play a quick game of Blackjack.
     def play_blackjack
+      # This block creates the players array and the game instance.
       begin
-        # Create an array and add the player and bots.
         players = Array.new
         players << @player
         players << @bots
         players.flatten!
-
-        # Play the game!
         @game = Gambler::Game::Blackjack.new(:players => players)
         @game.ante_up!
-
-        @output.puts # spacer
-        @output.puts ''.center(WIDTH, '=')
-        @output.puts ' Blackjack '.center(WIDTH, '=')
-        @output.puts ''.center(WIDTH, '=')
-        @output.puts # spacer
-
-        # Main game loop.
-        loop do
-          display_hands
-          display_blackjack_menu
-
-          choice = @input.gets.chomp
-          case choice
-          when /b/i: # Bet
-            print 'Amount: '
-            amount = @input.gets.chomp.to_i
-            @game.place_bet(@player, amount)
-          when /h/i: @game.hit(@player)
-          when /s/i: # Stay
-          when /d/i: debug_console
-          when /m/i: break # Return to main menu.
-          when /q/i: # Quit the Client.
-            $player_quits = true
-            break # from this loop
-          else
-            @output.puts 'Invalid choice, dumbass.'
-          end
-        end # of main game loop.
       rescue Gambler::Exceptions::InvalidPlayerSize
         @output.puts 'Need at least 2 players for blackjack.'
         until @bots.size >= 1
           @bots << setup_player(:bot => true)
         end
         retry
-      end # of begin ZOMG!!1
+      end
+
+      @output.puts # spacer
+      @output.puts ''.center(WIDTH, '=')
+      @output.puts ' Blackjack '.center(WIDTH, '=')
+      @output.puts ''.center(WIDTH, '=')
+      @output.puts # spacer
+
+      # Main game loop.
+      loop do
+        display_hands
+        display_blackjack_menu
+
+        choice = @input.gets.chomp
+        case choice
+        when /b/i: # Bet
+          begin
+            print 'Amount: '
+            amount = @input.gets.chomp.to_i
+            @game.place_bet(@player, amount)
+          rescue Gambler::Exceptions::NotEnoughChips
+            @output.puts "You only have $#{@player.chips} left!"
+            retry
+          end
+        when /h/i:
+          begin
+            @game.hit(@player)
+            raise Gambler::Exceptions::PlayerBusted if @game.player_bust?(@player)
+          rescue Gambler::Exceptions::PlayerBusted
+            @output.puts 'BUST!'
+            # .. next hand ..
+          end
+        when /s/i: # Stay
+          play_bot_hands
+        when /d/i: debug_console
+        when /m/i: break # Return to main menu.
+        when /q/i: # Quit the Client.
+          $player_quits = true
+          break # from this loop
+        else
+          @output.puts 'Invalid choice, dumbass.'
+        end # of case
+      end # of main game loop.
     end # of play_blackjack
+
+    # Loops through the <tt>@bots</tt> and plays their hand (with some shoddy AI, mind you).
+    def play_bot_hands
+      @bots.each do |bot|
+        while @game.hand_value(bot.hand) <= 17
+          puts "\n\n#{bot} | Hand Value: #{@game.hand_value(bot.hand)}"
+          begin
+            @game.hit(bot)
+            @output.puts "#{bot} signals for a hit and gets a #{bot.hand.last}"
+            raise Gambler::Exceptions::PlayerBusted if @game.player_bust?(bot)
+          rescue Gambler::Exceptions::PlayerBusted
+            @output.puts "#{bot} has busted!"
+            # .. remove bot from current round ..
+          end
+        end
+      end
+    end # of play_bot_hands
 
     # Takes an array of +code+ lines and <tt>eval</tt>'s them.
     def run_code(code)

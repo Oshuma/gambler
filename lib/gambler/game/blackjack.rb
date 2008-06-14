@@ -18,6 +18,16 @@ module Gambler
         @players.each { |player| place_bet(player, @ante) }
       end
 
+      # Calculates the integer value for a Blackjack +hand+.
+      def hand_value(hand)
+        return 0 if hand.empty?
+        hand_value = 0
+        hand.each do |card|
+          hand_value += (card.face_value >= 10 ? 10 : card.face_value)
+        end
+        return hand_value
+      end
+
       # Give +player+ a Card.
       def hit(player)
         @deck.deal_to player
@@ -29,6 +39,12 @@ module Gambler
         raise Exceptions::NotEnoughChips if player.chips < amount
         @pot += amount
         player.chips -= amount
+      end
+
+      # Returns true of the Player's hand has a value above 21.
+      def player_bust?(player)
+        hand_value(player.hand) > 21
+        # calculate Aces?
       end
 
       private
